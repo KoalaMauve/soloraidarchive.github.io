@@ -1,0 +1,86 @@
+{
+  "boss": "Buzzwole",
+  "types": [],
+  "strategies": [
+    {
+      "strategyName": "Mega Rayquaza Recycle",
+      "weather": "Extreme",
+      "adventureEffect": "None",
+      "difficulty": "3★",
+      "text": "<h2>Overview</h2><p>Buzzwole is mosquito that needs to be crushed... Other than the hilariously strange flex it does when it faints, buzzwole is an interesting collection to add to the list of shiny ultrabeasts. Defeating is quite simple, use strong flying attackers. </p><p>Windy weather solos reduce this difficulty to 2 stars.</p><h4>Est Time to Win: Very Fast ~240s. </h4><h2>Main Strategy</h2><p><a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-recycle\" target=\"_blank\">Repeatedly use</a> Mega Rayquaza and cast Air Slash/Dragon Ascent until the boss faints. <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-rejoin\" target=\"_blank\">Rejoin</a> when Mega Rayquaza is unable to cast another Dragon Ascent. </p><p><br></p><p>If Mega Rayquaza is not available, alternative flying attackers include Mega Skarmory: Air Slash/Drill Peck++++, Shadow Salamence with Fire Fang/Fly or even Shadow Moltres with Wing Attack/Fly</p>",
+      "vods": [
+        {
+          "url": "https://www.youtube.com/watch?v=QdsQRimIpZo",
+          "label": "TTW: 238s [Mega Rayquaza Recycle]",
+          "creditName": "Jay258",
+          "creditUrl": "https://www.youtube.com/@TheJayLife"
+        }
+      ],
+      "submittedBy": "SpiritedBloom",
+      "battleParties": [
+        {
+          "label": "Mega Rayquaza Recycle",
+          "secondaryLabel": "",
+          "mons": [
+            {
+              "name": "Mega Rayquaza",
+              "level": "30-50",
+              "fm": "Air Slash",
+              "cm": "Dragon Ascent",
+              "cm2": "",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Moltres",
+              "level": "30-50",
+              "fm": "Wing Attack",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "30-50",
+              "fm": "Fire Fang",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Shadow Toucannon",
+              "level": "30-50",
+              "fm": "Peck",
+              "cm": "Beak Blast",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Mega Skarmory",
+              "level": "30-50",
+              "fm": "Air Slash",
+              "cm": "Drill Peck++",
+              "cm2": "",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": true
+            }
+          ]
+        }
+      ],
+      "submittedAt": "2026-09-12T19:04:42.068Z"
+    }
+  ]
+}
