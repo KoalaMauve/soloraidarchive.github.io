@@ -111,30 +111,23 @@
       "submittedAt": "2026-08-27T04:08:00.957Z"
     },
     {
-      "strategyName": "Primal Groudon Recycle",
-      "weather": "Sunny",
+      "strategyName": "Mega Mewtwo Y and Double Catch Tank",
+      "weather": "Windy",
       "adventureEffect": "None",
       "difficulty": "5★",
-      "text": "<h2>Overview</h2><p>This strategy revolves around recycling primal groudon in sunny weather. Shadow groudons may be used in case Primal Groudon isn't enough. <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-tick-perfect-cast\" target=\"_blank\">TPC</a> is helpful for retaining damage. </p><h4>Est Time to Win: 290-295s (Remote) (280-290s Local)</h4><p><br></p><h2>Main Strategy</h2><p>Against electric movesets, simply spam Precipice Blades and <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-rejoin\" target=\"_blank\">rejoin</a> when unable to cast another precipice blades. Against Power Whip it is recommended to simply tank them or opt to<a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-catch-tank\" target=\"_blank\"> catch tank</a> with Landorus Therian or Shadow Groudon.</p>",
-      "vods": [
-        {
-          "url": "https://www.youtube.com/watch?v=X8twYdC-Kbg",
-          "label": "TTW: 297.0s [Primal Recycle, TS/DS, Remote lag]",
-          "creditName": "Makoto",
-          "creditUrl": "https://www.youtube.com/@makoto_8680"
-        }
-      ],
+      "text": "<h2>Overview</h2><p>Mega Mewtwo Y is so strong that as a neutral damage attacker, Xurkitree can be taken out in Windy weather. It near rivals Primal Groudon's DPS but is half a step behind. Nevertheless, the advantage in being non-ground is the ability to absorb energy from electric type attacks offsetting its lesser innate DPS with higher energy gain increasing its actual DPS.</p><h4>Est Time to Win: 285-295s (Local), 290-295s (Remote)</h4><h2>Main Strategy</h2><h3>Against Powerwhip, Dazzling Gleam</h3><p><a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-double-catch-tank\" target=\"_blank\">Double catch tank</a> strategy with Shadow Regigigas by swapping Shadow Regigigas twice, the first swap quickly intercepts a powerwhip and dazzling gleam before retreating back to Mega Mewtwo Y. The second, (with the same Regigigas), intercepts another Power Whip/Dazzling Gleam and casts Crush Grip. Zen Headbutt is preferred here to gain the effects of windy weather boost unless hidden power ground is available. </p><p>If not available, Shadow Mamoswine is an excellent <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-catch-tank\" target=\"_blank\">catch tanker</a> for power whip allowing it to cast 1 mudslap then 1 high horsepower quickly. </p><h3>Against Discharge</h3><p>If Shadow Regigigas defense or level is low enough, it can double catch tank and absorb discharge energy. Not the most ideal answer but it can save a few rejoins. </p><p><br></p>",
+      "vods": [],
       "submittedBy": "SpiritedBloom",
       "battleParties": [
         {
-          "label": "Primal Groudon Recycle",
-          "secondaryLabel": "Decent backups",
+          "label": "Mega Mewtwo Y & Catch Tanks",
+          "secondaryLabel": "Versus Power-whip (single catch tank)",
           "mons": [
             {
-              "name": "Primal Groudon",
-              "level": "50-51",
-              "fm": "Mud Shot",
-              "cm": "Precipice Blades",
+              "name": "Mega Mewtwo Y",
+              "level": "52-53",
+              "fm": "Psycho Cut",
+              "cm": "Future Sight++++",
               "cm2": "",
               "roles": [
                 "Main DPS"
@@ -142,33 +135,36 @@
               "optional": false
             },
             {
-              "name": "Shadow Groudon",
-              "level": "40-50",
-              "fm": "Mud Shot",
-              "cm": "Precipice Blades",
+              "name": "Shadow Regigigas",
+              "level": "45-50",
+              "fm": "Zen Headbutt",
+              "cm": "Crush Grip",
               "cm2": "",
-              "roles": [
-                "Support DPS",
-                "Catch Tank"
-              ],
-              "optional": true
+              "roles": [],
+              "optional": false
             },
             {
-              "name": "Landorus Therian",
-              "level": "40-50",
-              "fm": "Mud Shot",
-              "cm": "Sandsear Storm",
+              "name": "Shadow Regigigas",
+              "level": "45-50",
+              "fm": "Zen Headbutt",
+              "cm": "Crush Grip",
               "cm2": "",
-              "roles": [
-                "Support DPS",
-                "Catch Tank"
-              ],
+              "roles": [],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [],
               "optional": true
             }
           ]
         }
       ],
-      "submittedAt": "2026-09-12T18:28:51.373Z"
+      "submittedAt": "2026-09-12T18:43:34.335Z"
     }
   ]
 }
