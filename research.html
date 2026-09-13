@@ -90,6 +90,9 @@
   .tier-info-badge.tier-D{ background:#3d8fe0; }
   @media (max-width:700px){
     .tier-info-panel{ left:14px; right:14px; width:auto; }
+    /* At 360px the switch row plus the info button overflowed by 12px. Letting the row wrap and
+       centre keeps everything inside the viewport on the narrowest phones. */
+    .view-switch-row{ flex-wrap:wrap; justify-content:center; row-gap:8px; }
     /* Sprite shrinks so the badge and name keep one line on a phone. */
     .tier-card-modal{ padding:18px 18px 16px; }
     .tc-head{ gap:11px; margin-bottom:7px; }
@@ -521,6 +524,26 @@
      the pairing stays legible: Air Slash goes with Dragon Ascent, not with Breaking Swipe. Most
      raiders have one or two sets, so rows typically grow by a single line. */
   .lb-sets{ display:flex; flex-direction:column; gap:3px; margin-top:5px; }
+
+  /* Mobile leaderboard rows. The row is one flex line, and on a 390px screen the fixed columns
+     (rank, sprite, uses, chevron) left the main column just 89px - so "Kyurem Black" broke onto
+     two lines, the roles wrapped, and each move chip landed on its own row with the "/" stranded
+     between them. Rows ran 180px median and the page 4591px.
+
+     Reclaiming width from the fixed columns rather than restructuring keeps desktop untouched.
+     Measured: main column 89px -> 151px, name back to one line, row median 180px -> 116px,
+     page 4591px -> 3456px. A two-line variant (details below the sprite) was tried and came out
+     WORSE at 159px median, because the wrapped line costs more than the width it buys. */
+  @media (max-width: 700px){
+    .lb-row{ gap:8px; padding:10px 12px; }
+    .lb-rank{ width:22px; min-width:22px; }
+    .lb-sprite{ width:36px; height:36px; }
+    .lb-count{ min-width:44px; }
+    .lb-sets{ gap:2px; margin-top:3px; }
+    .lb-set{ gap:2px; }
+    /* Chips stay at 9px - going smaller saved almost nothing and hurt legibility. */
+    .lb-set .bd-move-chip{ font-size:9px; padding:2px 6px; }
+  }
   .lb-set{ display:flex; align-items:center; gap:3px; flex-wrap:wrap; }
   .lb-mv{
     display:inline-flex; align-items:center; gap:4px; font-size:9.5px; font-weight:800;
