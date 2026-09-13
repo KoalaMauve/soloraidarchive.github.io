@@ -1,0 +1,97 @@
+{
+  "boss": "Mega Beedrill",
+  "types": [],
+  "strategies": [
+    {
+      "strategyName": "Starter Budget",
+      "weather": "Sunny",
+      "adventureEffect": "None",
+      "difficulty": "3★",
+      "text": "<h2>Overview</h2><p>Mega Beedrill can be considered the \"starter\" Mega of PoGo since they give you this Mega for free; whether you be a new player or one that's been around since 2016.</p><p>So to take down the starter Mega, why not use some fully-evolved Fire starters of our own? Especially since both are so easily accessible?</p><p><br></p><p><em>(Disclaimer: While I did run Low Kick as the Fast Move for Emboar, Ember is generally the better Fast Move for it on this solo)</em></p><h4>Est Time to Win</h4><p>260-270 seconds</p><h2>Main Strategy</h2><p>Time your dodges and relobby if needed. Pretty straightforward.</p><h2>Video Credits</h2><p><br></p>",
+      "vods": [
+        {
+          "url": "https://youtu.be/SHWNFJXqizU",
+          "label": "Budget Solo Using Only Starters",
+          "creditName": "BoltBlades12",
+          "creditUrl": "https://www.youtube.com/@BoltBlades12"
+        }
+      ],
+      "submittedBy": "BoltBlades12",
+      "battleParties": [
+        {
+          "label": "Sizzling Starters",
+          "secondaryLabel": "",
+          "mons": [
+            {
+              "name": "Charizard",
+              "level": "40",
+              "fm": "Fire Spin",
+              "cm": "Blast Burn",
+              "cm2": "Overheat",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Typhlosion",
+              "level": "40",
+              "fm": "Ember",
+              "cm": "Blast Burn",
+              "cm2": "Thunder Punch",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Blaziken",
+              "level": "40",
+              "fm": "Fire Spin",
+              "cm": "Blast Burn",
+              "cm2": "Aura Sphere",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Infernape",
+              "level": "40",
+              "fm": "Fire Spin",
+              "cm": "Blast Burn",
+              "cm2": "Close Combat",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Emboar",
+              "level": "40",
+              "fm": "Ember",
+              "cm": "Blast Burn",
+              "cm2": "Focus Blast",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Delphox",
+              "level": "40",
+              "fm": "Fire Spin",
+              "cm": "Blast Burn",
+              "cm2": "Psychic",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ],
+      "submittedAt": "2026-09-13T03:33:14.230Z"
+    }
+  ]
+}
