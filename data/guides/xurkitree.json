@@ -277,6 +277,97 @@
         }
       ],
       "submittedAt": "2026-09-12T18:28:51.373Z"
-      }
-      ]
+    },
+    {
+      "strategyName": "Shadow Mamoswine Catch Tank",
+      "weather": "Extreme",
+      "adventureEffect": "Blade Boost",
+      "difficulty": "5.5★",
+      "text": "<h2>Overview</h2><p>Xurkitree solo without weather boost while using Zacian Crown's blade boost has only been completed against Power Whip. Maximizing energy gained from power-whip and strong tick perfect cast with quick catch tank timings are required to defeat this boss. <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-tick-perfect-cast\" target=\"_blank\">TPC</a> is highly recommended for Primal Groudon damage.</p><p>Est Time to Win [298.0s - 300s] </p><h2>Main Strategy</h2><p>DPS with Primal Groudon making sure to absorb power whips (up to 3 power whips) while not allowing it to overflow in energy. Energy overflow occurs when Primal Groudon is holding roughly 50-76 energy (50-76% of the orb). </p><p>If this occurs, simply <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-catch-tank\" target=\"_blank\">catch tank</a> with Shadow Mamoswine for 1 mud-slap and 1 high horsepower. </p><p>Aim for roughly 3 <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-rejoin\" target=\"_blank\">rejoins</a> with the rejoins on average occurring around the 225s, 150s and 75s mark. That being said pacing and RNG could mean faster or slower rejoins. That is okay as long as 2 rejoins are hit. </p><p><br></p>",
+      "vods": [
+        {
+          "url": "https://www.youtube.com/watch?v=t4w2MLVhGj4",
+          "label": "TTW: 299.5s [Full Sized, Any/PW, TPC, Some Lag]",
+          "creditName": "xRage7243",
+          "creditUrl": "youtube.com/@xRage7243"
+        }
+      ],
+      "submittedBy": "SpiritedBloom",
+      "battleParties": [
+        {
+          "label": "Main Battle Party",
+          "secondaryLabel": "",
+          "mons": [
+            {
+              "name": "Primal Groudon",
+              "level": "50-51",
+              "fm": "Mud Shot",
+              "cm": "Precipice Blades",
+              "cm2": "",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Mamoswine",
+              "level": "45-50",
+              "fm": "Mud Slap",
+              "cm": "High Horsepower",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ],
+      "submittedAt": "2026-09-14T20:32:00.592Z"
     }
+  ]
+}
