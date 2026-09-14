@@ -85,6 +85,131 @@
         }
       ],
       "submittedAt": "2026-09-13T20:00:33.423Z"
+    },
+    {
+      "strategyName": "Zacian Crown",
+      "weather": "Snow",
+      "adventureEffect": "None",
+      "difficulty": "4★",
+      "text": "<h2>Overview</h2><p>Xerneas solo in snow weather was originally completed using Necrozma Dusk Mane and with partial assistance from Shadow Metagross as an executor. Now, the solo has gotten much more consistent as long as the player utilizes some TPC if using Zacian Crown.</p><h4>Est Time to Win: 280.0s-290.s, 290-299.0s (remote lag)</h4><p><br></p><h2>Main Strategy</h2><p>Utilizing Zacian Crown, simply DPS with Metal claw and Behemoth Blade. <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-hot-swap\" target=\"_blank\">Hot swap </a>to the next Zacian Crown if </p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The incoming charge move causes a big overflow of energy. In which you'd double back to the original Zacian Crown after fully utilizing the switched one. </li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>If the active Zacian Crown is unable to reasonably get another Behemoth Blade out. </li></ol><p>The move that can cause overflowed energy is primarily Giga Impact. </p><p>It is important in this current meta to practice a little bit of Tick Perfect Cast, <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-tick-perfect-cast\" target=\"_blank\">TPC</a>, to increase consistency with the run. This is due to the heavy usage of the 0.5s metal claw and 100 energy costing behemoth blade. <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-tick-perfect-cast\" target=\"_blank\">TPC</a> is what allows this to be a 4 star challenge.</p><p><br></p><p>If having multiple Zacian Crowns is not an option, utilizing Zamazenta Crown and or Necrozma Dusk Mane can be viable although slightly lesser DPS alternatives. Zamazenta Crown can be used as an executor in the final cycle if building to Behemoth Blade takes too long. </p><p>Two VODS showcasing the first recorded routes with Necrozma Dusk Mane have been included as proof of concept. </p><h2>Main Struggles: </h2><p>Finding snow weather is incredibly difficult, requires having friends or locals in different geographical locations to send invites. If remoting to cross continental regions, expect remote lag which may affect the TTW significantly by about +10s. </p><p><br></p>",
+      "vods": [
+        {
+          "url": "https://www.youtube.com/watch?v=3qZuAfNK7mA",
+          "label": "TTW: 292 [Full Sized, ZH/MH, Remote Lag]",
+          "creditName": "SpiritedBloom",
+          "creditUrl": "youtube.com/@spiritedbloom"
+        },
+        {
+          "url": "https://youtu.be/PrDK29ejWGE?si=IOhDmq0bUv3c0qTW",
+          "label": "TTW: 298.5s [Full Sized, Necrozma Dusk Mane Route, TKL/GI]",
+          "creditName": "Spiritedbloom",
+          "creditUrl": "youtube.com/@spiritedbloom"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Ee0lrUeN2Do",
+          "label": "TTW: 300.0s [Full Sized, Necrozma Dusk Mane Route, TKL/GI]",
+          "creditName": "xRage7243",
+          "creditUrl": "youtube.com/@xRage7243"
+        }
+      ],
+      "submittedBy": "SpiritedBloom",
+      "battleParties": [
+        {
+          "label": "Main Battle Party",
+          "secondaryLabel": "Executors & Somewhat viable support DPSers",
+          "mons": [
+            {
+              "name": "Zacian Crown",
+              "level": "45-51",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Blade",
+              "cm2": "",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Zacian Crown",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Bade",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Zacian Crown",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Bade",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Zacian Crown",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Bade",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Zacian Crown",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Bade",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Zamazenta Crown",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Behemoth Bash",
+              "cm2": "",
+              "roles": [
+                "Executor"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Necrozma Dusk Mane",
+              "level": "45-50",
+              "fm": "Metal Claw",
+              "cm": "Sunsteel Strike",
+              "cm2": "",
+              "roles": [
+                "Support DPS"
+              ],
+              "optional": true
+            },
+            {
+              "name": "Shadow Metagross",
+              "level": "40-50",
+              "fm": "Bullet Punch",
+              "cm": "Meteor Mash",
+              "cm2": "",
+              "roles": [
+                "Executor"
+              ],
+              "optional": true
+            }
+          ]
+        }
+      ],
+      "submittedAt": "2026-09-14T20:06:54.922Z"
     }
   ]
 }
