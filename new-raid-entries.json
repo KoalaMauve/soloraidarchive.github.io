@@ -1,5 +1,71 @@
 [
   {
+    "commit": "4972735842de082db8532c6cc9ea533b5b5ab0bc",
+    "date": "2026-09-15T19:20:40-07:00",
+    "entries": [
+      {
+        "boss": "Enamorus Therian",
+        "star": "6 \u2b50",
+        "strategy": "CT/TPC",
+        "weather": "Rainy",
+        "ae": "",
+        "fast": "Any",
+        "charge": "Moonblast",
+        "vod": "",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Giratina Altered",
+        "star": "6 \u2b50",
+        "strategy": "HS/DBL CT",
+        "weather": "Fog",
+        "ae": "sword",
+        "fast": "Any",
+        "charge": "Shadow Sneak",
+        "vod": "",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Zamazenta Hero",
+        "star": "5.5 \u2b50",
+        "strategy": "Catch Tank",
+        "weather": "Windy",
+        "ae": "sword",
+        "fast": "Varies",
+        "charge": "Moonblast",
+        "vod": "https://x.com/HwangOkHone/status/2099965711661850907",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Kyurem",
+        "star": "4 \u2b50",
+        "strategy": "Hot Swap",
+        "weather": "Snow",
+        "ae": "sword",
+        "fast": "Dragon Breath",
+        "charge": "Dragon Claw",
+        "vod": "",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Zamazenta Hero",
+        "star": "4 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "sword",
+        "fast": "Ice Fang",
+        "charge": "Iron Head",
+        "vod": "https://youtu.be/z_qKwu0rk1E?si=bTlSgAEAZsnqU9XS",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "fa2a00d6ef90cadd110bff43bb8443d7ec01ccda",
     "date": "2026-09-12T20:33:56-07:00",
     "entries": [
@@ -153,84 +219,6 @@
         "strategy": "Catch Tank",
         "weather": "Extreme",
         "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "bac1892d43f84d9b56ffec0bf905915c4f03aa77",
-    "date": "2026-09-07T12:47:03-07:00",
-    "entries": [
-      {
-        "boss": "Mega Gyarados",
-        "star": "4 \u2b50",
-        "strategy": "",
-        "weather": "Extreme",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "https://youtu.be/mnzW2zhKY6Q",
-        "archivePage": "tier4-raids.html",
-        "archiveLabel": "Mega"
-      },
-      {
-        "boss": "Kyurem",
-        "star": "4 \u2b50",
-        "strategy": "Hot Swap",
-        "weather": "Snow",
-        "ae": "sword",
-        "fast": "Dragon Breath",
-        "charge": "Dragon Claw",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Kyurem Black",
-        "star": "4 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Cloudy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Kyurem White",
-        "star": "4 \u2b50",
-        "strategy": "Varies",
-        "weather": "Cloudy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Regieleki",
-        "star": "4 \u2b50",
-        "strategy": "",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Thundurus Incarnate",
-        "star": "4 \u2b50",
-        "strategy": "Hot Swap",
-        "weather": "Extreme",
-        "ae": "sword",
         "fast": "Any",
         "charge": "Any",
         "vod": "",
