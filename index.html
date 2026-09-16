@@ -1239,12 +1239,19 @@ async function loadMonthlyGuides(){
     const seen = new Set();
     const matched = [];
     (liveData.dateGroups || []).forEach(group => {
-      const start = group.startDate ? new Date(group.startDate) : null;
-      if(!start || isNaN(start)) return;
-      // endDate missing/invalid degrades to a single-day window at startDate rather than being
-      // dropped outright - a group with real bosses in it should not vanish over one bad field.
+      // A rotation that is ALREADY RUNNING is published without a start date, so the boss being
+      // fought right now is the one most likely to arrive with only an end. Requiring a start
+      // here dropped the whole group - it hid Zamazenta Hero and Mega Venusaur the moment their
+      // Sep 22 rotation went live. isInCurrentMonth() above was fixed for the same reason; this
+      // copy of the check was missed.
+      const startRaw = group.startDate ? new Date(group.startDate) : null;
       const endRaw = group.endDate ? new Date(group.endDate) : null;
-      const end = (endRaw && !isNaN(endRaw)) ? endRaw : start;
+      const startOk = startRaw && !isNaN(startRaw);
+      const endOk = endRaw && !isNaN(endRaw);
+      if(!startOk && !endOk) return;                     // neither bound: undecidable
+      // Each missing bound degrades to the other rather than dropping the group.
+      const start = startOk ? startRaw : endRaw;
+      const end = endOk ? endRaw : startRaw;
       if(start > monthEnd || end < monthStart) return;   // no overlap with this month at all
       (group.bosses || []).forEach(boss => {
         const slug = bossSlug(boss.name);
