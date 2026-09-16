@@ -1,5 +1,35 @@
 [
   {
+    "commit": "fb375110ecff1c35b42cbd099676979da4128d59",
+    "date": "2026-09-16T12:17:48-07:00",
+    "entries": [
+      {
+        "boss": "Zamazenta Hero",
+        "star": "5.5 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "",
+        "fast": "Metal Claw",
+        "charge": "Close Combat",
+        "vod": "Solo Zamazenta Hero Windy NAE TTW: 297.0s - YouTube",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Zamazenta Hero",
+        "star": "5.5 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "",
+        "fast": "Quick Attack",
+        "charge": "Close Combat",
+        "vod": "Zamazenta Solo \ud83e\ude81 | No Adv. Effect | QA/CC | Mega Mewtwo Y Recycle - YouTube",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "4972735842de082db8532c6cc9ea533b5b5ab0bc",
     "date": "2026-09-15T19:20:40-07:00",
     "entries": [
@@ -60,168 +90,6 @@
         "fast": "Ice Fang",
         "charge": "Iron Head",
         "vod": "https://youtu.be/z_qKwu0rk1E?si=bTlSgAEAZsnqU9XS",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "fa2a00d6ef90cadd110bff43bb8443d7ec01ccda",
-    "date": "2026-09-12T20:33:56-07:00",
-    "entries": [
-      {
-        "boss": "Mega Beedrill",
-        "star": "1 \u2b50",
-        "strategy": "",
-        "weather": "Extreme",
-        "ae": "",
-        "fast": "Infestation",
-        "charge": "Aerial Ace",
-        "vod": "https://youtu.be/R3e9yEOO6FQ",
-        "archivePage": "tier4-raids.html",
-        "archiveLabel": "Mega"
-      },
-      {
-        "boss": "Mega Beedrill",
-        "star": "1 \u2b50",
-        "strategy": "",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Infestation",
-        "charge": "Aerial Ace",
-        "vod": "https://www.youtube.com/watch?v=Hd3LlvWUDwc",
-        "archivePage": "tier4-raids.html",
-        "archiveLabel": "Mega"
-      },
-      {
-        "boss": "Tornadus Therian",
-        "star": "6 \u2b50",
-        "strategy": "CT/TPC",
-        "weather": "Cloudy",
-        "ae": "sword",
-        "fast": "Astonish",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Darkrai",
-        "star": "5.5 \u2b50",
-        "strategy": "Catch Tank",
-        "weather": "Extreme",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Heatran",
-        "star": "5.5 \u2b50",
-        "strategy": "Hot Swap",
-        "weather": "Clear",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Stone Edge",
-        "vod": "https://youtu.be/wzlGj-usErw",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Latios",
-        "star": "5.5 \u2b50",
-        "strategy": "Catch tank",
-        "weather": "Windy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Solar Beam",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Tornadus Therian",
-        "star": "5.5 \u2b50",
-        "strategy": "CT/TPC",
-        "weather": "Snow",
-        "ae": "sword",
-        "fast": "Astonish",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Tornadus Therian",
-        "star": "5.5 \u2b50",
-        "strategy": "CT/TPC",
-        "weather": "Partly Cloudy",
-        "ae": "sword",
-        "fast": "Astonish",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Darkrai",
-        "star": "5 \u2b50",
-        "strategy": "Sub/Catch Tank",
-        "weather": "Rainy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Thundurus Therian",
-        "star": "5 \u2b50",
-        "strategy": "Catch Tank",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Bite",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Xurkitree",
-        "star": "5 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Darkrai",
-        "star": "4 \u2b50",
-        "strategy": "Catch Tank",
-        "weather": "Partly Cloudy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Focus Blast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Terrakion",
-        "star": "4 \u2b50",
-        "strategy": "Catch Tank",
-        "weather": "Extreme",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "",
         "archivePage": "tier5-raids.html",
         "archiveLabel": "Legendary"
       }
