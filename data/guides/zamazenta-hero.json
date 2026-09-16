@@ -53,6 +53,97 @@
         }
       ],
       "submittedAt": "2026-09-12T18:07:11.329Z"
+    },
+    {
+      "strategyName": "MMY Shadow Salamence Catch Tank",
+      "weather": "Windy",
+      "adventureEffect": "None",
+      "difficulty": "5.5★",
+      "text": "<h2>Overview</h2><p>The Zamazenta Hero solo without blade boost requires catch tanking moonblast with Shadow Salamence (ideally 11 defense) and casting 2 Flies. The ideal is Shadow Salamence with lower defense only needs to cast 2 dragon tails before having the energy to cast Fly Twice.</p><h4>Est Time to Win: 295.0s-300.0s</h4><p><br></p><h2>Main Strategy</h2><p>DPS with Mega Mewtwo Y and use Psycho Cut/Future Sight+ with <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-tick-perfect-cast\" target=\"_blank\">TPC</a>. Roughly late (6t or so) into a moonblast cast, simply <a href=\"https://soloraidarchive.github.io/solo-raid-mechanics.html#strategy-catch-tank\" target=\"_blank\">catch tank </a>into Shadow Salamence and cast 2 Dragon tails and 2 Flies. It is not worth dodging on Mega Mewtwo Y, simply aim for roughly 2 or 3 rejoins and reset the lobby as soon as possible. Energy being absorbed on Mega Mewtwo Y is preferred only when it is healthy enough to continue fighting afterwards. </p><p><br></p>",
+      "vods": [
+        {
+          "url": "https://x.com/HwangOkHone/status/2099965711661850907",
+          "label": "TTW: 297.5s [Full Sized, MC/MB]",
+          "creditName": "HwangOkHone",
+          "creditUrl": "https://x.com/HwangOkHone/"
+        }
+      ],
+      "submittedBy": "SpiritedBloom",
+      "battleParties": [
+        {
+          "label": "Full Sized Battle Party [11 Defense Salamences]",
+          "secondaryLabel": "",
+          "mons": [
+            {
+              "name": "Mega Mewtwo Y",
+              "level": "52",
+              "fm": "Psycho Cut",
+              "cm": "Future Sight++++",
+              "cm2": "Psystrike",
+              "roles": [
+                "Main DPS"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "50",
+              "fm": "Dragon Tail",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "50",
+              "fm": "Dragon Tail",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "50",
+              "fm": "Dragon Tail",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "50",
+              "fm": "Dragon Tail",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            },
+            {
+              "name": "Shadow Salamence",
+              "level": "50",
+              "fm": "Dragon Tail",
+              "cm": "Fly",
+              "cm2": "",
+              "roles": [
+                "Catch Tank"
+              ],
+              "optional": false
+            }
+          ]
+        }
+      ],
+      "submittedAt": "2026-09-16T02:31:47.796Z"
     }
   ]
 }
