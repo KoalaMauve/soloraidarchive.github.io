@@ -577,14 +577,35 @@ function resolveTypeDyn(name){
 }
 
 // ---- Move-based type labeling (charge move elemental type) ----
-const moveInfoLookupDyn = {};
-MOVE_DB.forEach(m => { moveInfoLookupDyn[m.n.toLowerCase()] = m; });
+// Built lazily. MOVE_DB is populated asynchronously from csv/moves.csv, and this ran at
+// script-parse time while it was still empty - so the lookup held 0 entries and EVERY move type
+// resolved to null. That silently broke the party type labels, which fell back to the lead's
+// species typing instead of the charge moves. Rebuilt on first use once MOVE_DB has data, then
+// cached.
+let _moveInfoLookupCache = null;
+function moveInfoLookup(){
+  if(_moveInfoLookupCache && Object.keys(_moveInfoLookupCache).length) return _moveInfoLookupCache;
+  const map = {};
+  (typeof MOVE_DB !== "undefined" ? MOVE_DB : []).forEach(m => { map[m.n.toLowerCase()] = m; });
+  if(Object.keys(map).length) _moveInfoLookupCache = map;   // only cache once it is real
+  return map;
+}
+// Kept as a Proxy so the existing moveInfoLookupDyn[...] call sites keep working unchanged.
+const moveInfoLookupDyn = new Proxy({}, {
+  get: (_, key) => moveInfoLookup()[typeof key === "string" ? key : String(key)],
+  has: (_, key) => Object.prototype.hasOwnProperty.call(moveInfoLookup(), key),
+});
 
 function resolveMoveTypeDyn(moveName){
   if(!moveName) return null;
   const clean = moveName.trim();
   if(moveInfoLookupDyn[clean.toLowerCase()]) return moveInfoLookupDyn[clean.toLowerCase()].elem;
-  const parts = clean.split(/\s*[&/]\s*|\s+or\s+/i).map(p => p.trim()).filter(Boolean);
+  // Comma included, and a trailing level annotation dropped: cells look like
+  // "Zap Cannon++++, Wild Charge" and "Mystical Fire+ (Lvl 3-4)". Splitting on & and / alone
+  // left those unresolved, which cost the party its type.
+  const parts = clean.split(/\s*[&/,]\s*|\s+or\s+/i)
+    .map(p => p.replace(/\s*\([^)]*\)\s*$/, "").trim())
+    .filter(Boolean);
   for(const part of parts){
     if(moveInfoLookupDyn[part.toLowerCase()]) return moveInfoLookupDyn[part.toLowerCase()].elem;
   }
@@ -596,13 +617,35 @@ function resolveMoveTypeDyn(moveName){
 function moveToEnumDyn(moveName){
   let clean = moveName.trim();
   if(!moveInfoLookupDyn[clean.toLowerCase()]){
-    const parts = clean.split(/\s*[&/]\s*|\s+or\s+/i).map(p => p.trim()).filter(Boolean);
+    // Comma included: cells like "Future Sight++++, Psystrike" list two moves and were being
+    // passed through whole, producing FUTURE_SIGHT++++,_PSYSTRIKE. A link takes one move, so the
+    // first recognised one is used.
+    const parts = clean.split(/\s*[&/,]\s*|\s+or\s+/i).map(p => p.trim()).filter(Boolean);
+    let picked = null;
     for(const part of parts){
-      if(moveInfoLookupDyn[part.toLowerCase()]){ clean = part; break; }
+      if(moveInfoLookupDyn[part.toLowerCase()]){ picked = part; break; }
     }
+    // MOVE_DB on this page holds no boosted variants, so "Future Sight++++" matches nothing and
+    // the loop used to leave the whole cell intact - emitting FUTURE_SIGHT++++,_PSYSTRIKE. Falling
+    // back to the first listed move keeps a multi-move cell resolvable whether or not the lookup
+    // recognises the boosted name.
+    clean = picked || parts[0] || clean;
   }
   const info = moveInfoLookupDyn[clean.toLowerCase()];
-  let enum_ = clean.toUpperCase().split(/\s+/).join('_');
+  // Trailing plus signs mark the boosted variants: "Future Sight++++" is FUTURE_SIGHT_PLUS_4.
+  // They were previously passed through untouched, producing FUTURE_SIGHT++++ - not a valid id,
+  // so every link containing a boosted move silently pointed at nothing.
+  // Real entries carry level annotations - "Fell Stinger+ (lvl 1-4)", "Zap Cannon+ (4)" - so the
+  // parenthetical is dropped before the plus signs are counted. Matching only a trailing "+"
+  // missed every annotated move and emitted ids like FELL_STINGER+_(LVL_1-4).
+  clean = clean.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  let plusSuffix = '';
+  const plusMatch = clean.match(/(\++)\s*$/);
+  if(plusMatch){
+    plusSuffix = '_PLUS_' + plusMatch[1].length;
+    clean = clean.slice(0, plusMatch.index).trim();
+  }
+  let enum_ = clean.toUpperCase().split(/\s+/).join('_') + plusSuffix;
   if(info && info.type === 'Fast') enum_ += '_FAST';
   return enum_;
 }
@@ -613,10 +656,34 @@ function speciesToEnumDyn(name){
   if(isShadow) n = n.replace(/^shadow\s+/i, '');
   n = n.replace(/Crowned Zacian/i, 'Zacian Crown').replace(/Crowned Zamazenta/i, 'Zamazenta Crown');
   n = n.replace(/-/g, ' ');
+
+  // Names whose id does not follow from the words themselves. Checked against the published id
+  // list rather than inferred - "Zacian Crown" is ZACIAN_CROWNED_SWORD_FORM, not ZACIAN_CROWN_FORM.
+  const SPECIES_ID_OVERRIDES = {
+    'zacian crown': 'ZACIAN_CROWNED_SWORD_FORM',
+    'zamazenta crown': 'ZAMAZENTA_CROWNED_SHIELD_FORM',
+    'zacian crowned sword': 'ZACIAN_CROWNED_SWORD_FORM',
+    'zamazenta crowned shield': 'ZAMAZENTA_CROWNED_SHIELD_FORM',
+    'darmanitan galarian': 'DARMANITAN_GALARIAN_STANDARD_FORM',
+  };
+  const override = SPECIES_ID_OVERRIDES[n.toLowerCase()];
+  if(override) return { enum: isShadow ? override + '_SHADOW_FORM' : override, isShadow };
+
   let words = n.split(/\s+/);
-  if(words[0].toLowerCase() === 'mega') words = words.slice(1).concat(['Mega']);
-  if(words[0].toLowerCase() === 'primal') words = words.slice(1).concat(['Primal']);
-  const FORM_WORDS = new Set(['black','white','origin','hero','crown','incarnate','therian','dawn','wings','dusk','mane','resolute','attack','defense','speed']);
+  // Mega goes AFTER the species but BEFORE an X/Y suffix: Mega Mewtwo Y -> MEWTWO_MEGA_Y.
+  // Appending it blindly gave MEWTWO_Y_MEGA, which is not a valid id.
+  const megaIdx = ['mega','primal'].indexOf(words[0].toLowerCase());
+  if(megaIdx !== -1){
+    const tag = words[0];
+    const rest = words.slice(1);
+    const last = rest[rest.length - 1];
+    if(rest.length > 1 && /^[xy]$/i.test(last)){
+      words = rest.slice(0, -1).concat([tag, last]);
+    }else{
+      words = rest.concat([tag]);
+    }
+  }
+  const FORM_WORDS = new Set(['black','white','origin','hero','crown','incarnate','therian','dawn','wings','dusk','mane','resolute','attack','defense','speed','shield','blade','standard','zen','altered']);
   const needsForm = words.some(w => FORM_WORDS.has(w.toLowerCase())) && !words.some(w => ['mega','primal'].includes(w.toLowerCase()));
   let enum_ = words.map(w => w.toUpperCase()).join('_');
   if(needsForm && !enum_.endsWith('_FORM')) enum_ += '_FORM';
