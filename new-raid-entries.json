@@ -1,5 +1,23 @@
 [
   {
+    "commit": "e0ee499c964c033c45f814fd61d8a00868a9a845",
+    "date": "2026-09-16T20:37:17-07:00",
+    "entries": [
+      {
+        "boss": "Zamazenta Hero",
+        "star": "4 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "sword",
+        "fast": "Ice Fang",
+        "charge": "Moonblast",
+        "vod": "https://youtu.be/9g0UBzyB6Hc?is=KouqDC9Gd-bcj3jd",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "92c77a5e4519eecca5fafd59174a91f3092201e7",
     "date": "2026-09-16T20:23:18-07:00",
     "entries": [
@@ -24,36 +42,6 @@
         "fast": "Quick Attack",
         "charge": "Close Combat",
         "vod": "https://www.youtube.com/watch?v=NxqSJopuWV8",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "fb375110ecff1c35b42cbd099676979da4128d59",
-    "date": "2026-09-16T12:17:48-07:00",
-    "entries": [
-      {
-        "boss": "Zamazenta Hero",
-        "star": "5.5 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Metal Claw",
-        "charge": "Close Combat",
-        "vod": "Solo Zamazenta Hero Windy NAE TTW: 297.0s - YouTube",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Zamazenta Hero",
-        "star": "5.5 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Quick Attack",
-        "charge": "Close Combat",
-        "vod": "Zamazenta Solo \ud83e\ude81 | No Adv. Effect | QA/CC | Mega Mewtwo Y Recycle - YouTube",
         "archivePage": "tier5-raids.html",
         "archiveLabel": "Legendary"
       }
