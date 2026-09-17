@@ -1144,6 +1144,8 @@
         </div>
         <label class="check-item mp-buffs-check"><input type="checkbox" id="partyPower"> Party Power</label>
         <label class="check-item mp-buffs-check"><input type="checkbox" id="t7Enraged"> Enrage (T7)</label>
+        <label class="check-item mp-buffs-check"><input type="checkbox" id="shadowT5"> Shadow (T5)</label>
+        <label class="check-item mp-buffs-check"><input type="checkbox" id="shadowEnraged"> Shadow Enrage</label>
       </div>
     </details>
   </div>
@@ -2113,10 +2115,9 @@ function runCalculation(){
   }
   const bossCPMVal = parseFloat(document.getElementById("bossTier").value);
   const t7Enraged = document.getElementById("t7Enraged").checked;
-  let bossAtk = (boss.atk + 15) * bossCPMVal;
-  let bossDef = (boss.def + 15) * bossCPMVal;
-  let bossHp = (boss.hp + 15) * bossCPMVal;
-  if(t7Enraged){ bossDef *= 4; bossAtk *= 1.5; }
+  const bossMods = bossModifierState();
+  const _bs = bossStats(boss, bossCPMVal, bossMods);
+  let bossAtk = _bs.atk, bossDef = _bs.def, bossHp = _bs.hp;
 
   const bossCMName = document.getElementById("bossCM").value.trim();
   const bossFMName = document.getElementById("bossFM").value.trim();
@@ -2463,7 +2464,7 @@ function runCalculation(){
           </div>
           <div class="loadout-info">
             <div class="loadout-name">${bossName}</div>
-            <div class="loadout-role">Raid Boss${t7Enraged ? " · T7 Enraged" : ""}</div>
+            <div class="loadout-role">Raid Boss${bossModLabel()}</div>
             <div class="loadout-stats">
               <span>ATK <b>${bossAtk.toFixed(1)}</b></span>
               <span>DEF <b>${bossDef.toFixed(1)}</b></span>
@@ -2923,7 +2924,7 @@ function runCalculation(){
         </div>
         <div class="loadout-info">
           <div class="loadout-name">${bossName}</div>
-          <div class="loadout-role">Raid Boss${t7Enraged ? " · T7 Enraged" : ""}</div>
+          <div class="loadout-role">Raid Boss${bossModLabel()}</div>
           <div class="loadout-stats">
             <span>ATK <b>${bossAtk.toFixed(1)}</b></span>
             <span>DEF <b>${bossDef.toFixed(1)}</b></span>
@@ -3218,7 +3219,7 @@ const SETUP_FIELD_IDS = [
   "pokemonName","pokemonLevel","ivAtk","ivDef","ivHp",
   "playerCM","playerFM","effCM","effFM","stabCM","stabFM",
   "friendship","primalMega","numCM",
-  "weatherSelect","dodgeCM","dodgeFM","t7Enraged","shieldAE","zacianBlade","cmBuffer","partyPower","resolveNerf",
+  "weatherSelect","dodgeCM","dodgeFM","t7Enraged","shadowT5","shadowEnraged","shieldAE","zacianBlade","cmBuffer","partyPower","resolveNerf",
   "bossName","bossTier","bossCM","bossFM",
   "effBossCM","effBossFM","bossStabCM","bossStabFM","shadowDebuff",
 ];
@@ -3426,8 +3427,7 @@ function playerMoveDamagePreviewHtml(){
   if(!boss) return "";
   const bossCPMVal = parseFloat(document.getElementById("bossTier").value);
   const t7Enraged = document.getElementById("t7Enraged").checked;
-  let bossDef = (boss.def + 15) * bossCPMVal;
-  if(t7Enraged) bossDef *= 4;
+  let bossDef = bossStats(boss, bossCPMVal, bossModifierState()).def;
 
   const cmName = document.getElementById("playerCM").value.trim();
   const fmName = document.getElementById("playerFM").value.trim();
@@ -3459,8 +3459,9 @@ function playerMoveDamagePreviewHtml(){
   const ivDefRaw = document.getElementById("ivDef").value.trim();
   if(validateIV(ivDefRaw)){
     const playerDef = calcStat(pkmn.def, parseInt(ivDefRaw), level);
-    let bossAtk = (boss.atk + 15) * bossCPMVal;
-    if(t7Enraged) bossAtk *= 1.5;
+    // Fourth stat site - routed through bossStats() like the others so the shadow modifiers
+    // apply here too. Computing it inline meant this path silently ignored them.
+    let bossAtk = bossStats(boss, bossCPMVal, bossModifierState()).atk;
     const bossCMMove = findMove(document.getElementById("bossCM").value.trim());
     if(bossCMMove){
       const bossCMDmg = bossMoveDamage(bossCMMove, bossAtk, playerDef, {
@@ -3567,10 +3568,8 @@ function updateBossPreview(){
   if(!boss){ el.innerHTML = renderMiniPreview(name, null); if(dmgEl) dmgEl.innerHTML = ""; return; }
   const bossCPMVal = parseFloat(document.getElementById("bossTier").value);
   const t7Enraged = document.getElementById("t7Enraged").checked;
-  let bAtk = (boss.atk + 15) * bossCPMVal;
-  let bDef = (boss.def + 15) * bossCPMVal;
-  let bHp = (boss.hp + 15) * bossCPMVal;
-  if(t7Enraged){ bDef *= 4; bAtk *= 1.5; }
+  const _pv = bossStats(boss, bossCPMVal, bossModifierState());
+  let bAtk = _pv.atk, bDef = _pv.def, bHp = _pv.hp;
   el.innerHTML = renderMiniPreview(name, { atk: bAtk, def: bDef, hp: bHp });
   if(dmgEl) dmgEl.innerHTML = bossMoveDamagePreviewHtml(bAtk);
 }
@@ -4469,6 +4468,70 @@ function activeConditionsHtml(){
   return `<div class="loadout-conds">` +
     chips.map(c => `<span class="loadout-cond ${c.kind}">${c.icon || ""}${c.label}</span>`).join("") +
     `</div>`;
+}
+
+
+// ---- Shadow raid boss modifiers ----
+// Tier 5 Shadow bosses use CPM 0.82 rather than the standard 0.79, carry the shadow attack bonus
+// (x1.2) and the shadow defence penalty (x5/6).
+//
+// Enrage on a shadow boss is NOT the T7 enrage multiplier. The bonus is a floored proportion of
+// the effective stat, added on top of it:
+//     enraged attack  = eff_atk + floor(0.8 * eff_atk)
+//     enraged defence = eff_def + floor(2.2 * eff_def)
+//
+// Verified against a known value: an enraged Shadow Landorus Incarnate using Earth Power deals
+// 177 to a level 50 15/15/15 Kyurem Black. Earth Power is Ground, so snow gives it no weather
+// boost - which is what pins the x1.2 shadow attack bonus as the source of the damage rather
+// than weather.
+const SHADOW_T5_CPM = 0.82;
+const SHADOW_ATK_MULT = 1.2;
+const SHADOW_DEF_MULT = 5 / 6;
+
+// Short suffix for the loadout card so the card states which boss modifiers are in play.
+function bossModLabel(){
+  const m = bossModifierState();
+  const bits = [];
+  if(m.shadowT5) bits.push("Shadow T5");
+  if(m.shadowEnraged) bits.push("Enraged");
+  else if(m.t7) bits.push("T7 Enraged");
+  return bits.length ? " \u00b7 " + bits.join(" \u00b7 ") : "";
+}
+
+function bossModifierState(){
+  const g = id => { const e = document.getElementById(id); return e ? e.checked : false; };
+  return { t7: g("t7Enraged"), shadowT5: g("shadowT5"), shadowEnraged: g("shadowEnraged") };
+}
+
+// Single place the boss stat line is derived, so the three call sites cannot drift apart.
+function bossStats(boss, cpmVal, mods){
+  const cpm = mods.shadowT5 ? SHADOW_T5_CPM : cpmVal;
+  let atk = (boss.atk + 15) * cpm;
+  let def = (boss.def + 15) * cpm;
+  const hp = (boss.hp + 15) * cpm;
+
+  // ORDER MATTERS. The enrage bonus is taken from the CPM-only stat, BEFORE the shadow
+  // attack bonus and defence penalty are applied - "2.2x of their base defense (not including
+  // the debuff)". Applying the penalty first gives 430.62 where the real value is 430.45, so the
+  // multiplier goes last:
+  //     def = ((D + floor(2.2*D)) * 5/6)  with D = (base+15)*0.82
+  //         = (161.54 + 355) * 5/6 = 430.45   [confirmed]
+  // The damage test could not settle this on its own - both orderings yield 177 for the attack
+  // side - so the defence value is what fixes it.
+  if(mods.shadowEnraged){
+    atk = atk + Math.floor(0.8 * atk);
+    def = def + Math.floor(2.2 * def);
+  }
+  if(mods.shadowT5){
+    atk *= SHADOW_ATK_MULT;
+    def *= SHADOW_DEF_MULT;
+  }
+  if(!mods.shadowEnraged && mods.t7){
+    // The original T7 enrage. Kept separate: the two enrage types do not stack.
+    def *= 4;
+    atk *= 1.5;
+  }
+  return { atk, def, hp };
 }
 
 function getDurationUnit(){
