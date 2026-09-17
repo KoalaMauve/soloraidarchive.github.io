@@ -1,5 +1,35 @@
 [
   {
+    "commit": "92c77a5e4519eecca5fafd59174a91f3092201e7",
+    "date": "2026-09-16T20:23:18-07:00",
+    "entries": [
+      {
+        "boss": "Zamazenta Hero",
+        "star": "6 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "",
+        "fast": "Metal Claw",
+        "charge": "Close Combat",
+        "vod": "https://www.youtube.com/watch?v=lbORHJQMaoc&",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Zamazenta Hero",
+        "star": "6 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Windy",
+        "ae": "",
+        "fast": "Quick Attack",
+        "charge": "Close Combat",
+        "vod": "https://www.youtube.com/watch?v=NxqSJopuWV8",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "fb375110ecff1c35b42cbd099676979da4128d59",
     "date": "2026-09-16T12:17:48-07:00",
     "entries": [
@@ -24,72 +54,6 @@
         "fast": "Quick Attack",
         "charge": "Close Combat",
         "vod": "Zamazenta Solo \ud83e\ude81 | No Adv. Effect | QA/CC | Mega Mewtwo Y Recycle - YouTube",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "4972735842de082db8532c6cc9ea533b5b5ab0bc",
-    "date": "2026-09-15T19:20:40-07:00",
-    "entries": [
-      {
-        "boss": "Enamorus Therian",
-        "star": "6 \u2b50",
-        "strategy": "CT/TPC",
-        "weather": "Rainy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Moonblast",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Giratina Altered",
-        "star": "6 \u2b50",
-        "strategy": "HS/DBL CT",
-        "weather": "Fog",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Shadow Sneak",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Zamazenta Hero",
-        "star": "5.5 \u2b50",
-        "strategy": "Catch Tank",
-        "weather": "Windy",
-        "ae": "sword",
-        "fast": "Varies",
-        "charge": "Moonblast",
-        "vod": "https://x.com/HwangOkHone/status/2099965711661850907",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Kyurem",
-        "star": "4 \u2b50",
-        "strategy": "Hot Swap",
-        "weather": "Snow",
-        "ae": "sword",
-        "fast": "Dragon Breath",
-        "charge": "Dragon Claw",
-        "vod": "",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Zamazenta Hero",
-        "star": "4 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "sword",
-        "fast": "Ice Fang",
-        "charge": "Iron Head",
-        "vod": "https://youtu.be/z_qKwu0rk1E?si=bTlSgAEAZsnqU9XS",
         "archivePage": "tier5-raids.html",
         "archiveLabel": "Legendary"
       }
