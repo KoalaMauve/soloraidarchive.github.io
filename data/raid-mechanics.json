@@ -14,7 +14,7 @@
         {
           "name": "Tick Perfect Cast",
           "abbr": "TPC",
-          "desc": "<p>Precisely timing the final tap — not spamming — just before a charge move cast. Successful TPC avoids the energy resolve DPS nerf and requires practice to execute consistently.</p> <p>In order to TPC, first anticipate when the next fast move will top off the energy cost of your charge move. Tap your final fast move, wait briefly (0.5s) for the charge move button to appear and then tap the charge move button. Example: <br>- 0-93 energy: spam tap psycho cut.</br> <br>- 93-100 energy: tap psycho cut once.</br> <br>- 100 energy: tap charge move button.</br></p> ",
+          "desc": "<p>Precisely timing the final tap — not spamming — just before a charge move cast. Successful TPC avoids the energy resolve DPS nerf and requires practice to execute consistently.</p> <p>In order to TPC, first anticipate when the next fast move will top off the energy cost of your charge move. Tap your final fast move, wait briefly (0.5s) for the charge move button to appear and then tap the charge move button. Example: <br>- 0-93 energy: spam tap psycho cut.<br>- 93-100 energy: tap psycho cut once.<br>- 100 energy: tap charge move button.</p> ",
           "clip": "assets/clips/tpc-vs-energy-resolve.mp4",
           "attribution": "DarKnight"
         },
