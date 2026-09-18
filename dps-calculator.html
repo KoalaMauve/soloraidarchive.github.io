@@ -988,6 +988,10 @@
             <label for="bossTier">Tier</label>
             <select id="bossTier">
               <option value="0.79">T4/T5/T6/T7</option>
+              <!-- Shadow T5 is a boss TIER, not a party buff: it sets the CPM (0.82) and carries
+                   the shadow attack bonus and defence penalty. It lived in the multiplayer buff
+                   row, which put a property of the boss among the player's own modifiers. -->
+              <option value="0.82" data-shadow="1">Shadow T5</option>
               <option value="1">Elite</option>
             </select>
           </div>
@@ -1144,7 +1148,6 @@
         </div>
         <label class="check-item mp-buffs-check"><input type="checkbox" id="partyPower"> Party Power</label>
         <label class="check-item mp-buffs-check"><input type="checkbox" id="t7Enraged"> Enrage (T7)</label>
-        <label class="check-item mp-buffs-check"><input type="checkbox" id="shadowT5"> Shadow (T5)</label>
         <label class="check-item mp-buffs-check"><input type="checkbox" id="shadowEnraged"> Shadow Enrage</label>
       </div>
     </details>
@@ -3219,7 +3222,7 @@ const SETUP_FIELD_IDS = [
   "pokemonName","pokemonLevel","ivAtk","ivDef","ivHp",
   "playerCM","playerFM","effCM","effFM","stabCM","stabFM",
   "friendship","primalMega","numCM",
-  "weatherSelect","dodgeCM","dodgeFM","t7Enraged","shadowT5","shadowEnraged","shieldAE","zacianBlade","cmBuffer","partyPower","resolveNerf",
+  "weatherSelect","dodgeCM","dodgeFM","t7Enraged","shadowEnraged","shieldAE","zacianBlade","cmBuffer","partyPower","resolveNerf",
   "bossName","bossTier","bossCM","bossFM",
   "effBossCM","effBossFM","bossStabCM","bossStabFM","shadowDebuff",
 ];
@@ -4035,6 +4038,32 @@ function autoSetEffectiveness(){
 
 document.getElementById("calcBtn").addEventListener("click", runCalculation);
 
+// Modifier inputs refresh the displayed result immediately. Previously NONE of them did - the
+// card kept the old numbers until Calculate was pressed again, so unticking Shadow Enrage still
+// showed the enraged stats. This was never specific to the shadow toggles: t7Enraged, Blade
+// Boost and Party Power all went stale the same way.
+// Only refreshes when a result is already on screen, so changing settings before the first
+// calculation does not force one.
+(function(){
+  const ids = ["t7Enraged","shadowEnraged","shieldAE","zacianBlade","dynamicPunch","cmBuffer",
+               "partyPower","resolveNerf","dodgeCM","dodgeFM","weatherSelect","primalMega",
+               "friendship","bossTier","cadenceMode"];
+  const wrap = document.getElementById("resultsWrap");
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("change", () => {
+      // Name swap first, so the recalculation below picks up the new boss.
+      if(id === "bossTier") syncBossShadowName();
+      // Guards on .loadout-card, which every result branch renders. Guarding on
+      // .dps-result-card looked right but that element is ABSENT in the Fast & Charge branch
+      // once the scenario table replaces it - so after one toggle the guard went permanently
+      // false and nothing recalculated again.
+      if(wrap && wrap.querySelector(".loadout-card")) runCalculation();
+    });
+  });
+})();
+
 // Share button, appended after the results. Created once; visibility follows whether a result
 // card is currently rendered, so it cannot be clicked when there is nothing to capture.
 (function(){
@@ -4500,7 +4529,34 @@ function bossModLabel(){
 
 function bossModifierState(){
   const g = id => { const e = document.getElementById(id); return e ? e.checked : false; };
-  return { t7: g("t7Enraged"), shadowT5: g("shadowT5"), shadowEnraged: g("shadowEnraged") };
+  return { t7: g("t7Enraged"), shadowT5: isShadowTier(), shadowEnraged: g("shadowEnraged") };
+}
+
+// Selecting the Shadow T5 tier switches the boss to its Shadow variant, and deselecting reverts
+// it. Only applied when the variant actually exists in the database - a boss with no shadow form
+// keeps its name rather than being renamed into something unresolvable.
+function syncBossShadowName(){
+  const input = document.getElementById("bossName");
+  if(!input) return;
+  const name = input.value.trim();
+  if(!name) return;
+  const isShadowName = /^shadow\s+/i.test(name);
+  const want = isShadowTier();
+  if(want === isShadowName) return;                      // already correct
+
+  const next = want ? "Shadow " + name : name.replace(/^shadow\s+/i, "");
+  if(!findPokemon(next)) return;                         // no such variant - leave it alone
+  input.value = next;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+// Reads the flag off the selected option rather than comparing the CPM number, so the tier
+// values stay free to change without silently turning the shadow behaviour on or off.
+function isShadowTier(){
+  const sel = document.getElementById("bossTier");
+  const opt = sel && sel.selectedOptions[0];
+  return !!(opt && opt.dataset.shadow === "1");
 }
 
 // Single place the boss stat line is derived, so the three call sites cannot drift apart.
