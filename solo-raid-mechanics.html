@@ -222,6 +222,40 @@
   .entry-link-btn.copied{ opacity:1; color: var(--blue-dark); }
   /* Always visible rather than hover-only: hover does not exist on touch, and this is the one
      control on the page a phone reader is most likely to want. */
+
+  /* ---- Mechanics sidebar (desktop/browser only) ----
+     Deliberately scoped to >=1000px. Below that the aside is display:none and .mech-layout is a
+     plain block, so the mobile rendering is identical to the page without this menu. */
+  .mech-layout{ display:block; }
+  .mech-nav-side{ display:none; }
+  @media (min-width:1000px){
+    .mech-layout{
+      display:grid; grid-template-columns:210px minmax(0,1fr); gap:28px;
+      max-width:1180px; margin:0 auto; align-items:start;
+    }
+    .mech-layout .container{ margin:0; max-width:none; }
+    .mech-nav-side{
+      display:block; position:sticky; top:84px;
+      max-height:calc(100vh - 110px); overflow-y:auto; padding-right:6px;
+    }
+    .mech-nav-label{
+      font-family:'Manrope',sans-serif; font-weight:800; font-size:10px; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--ink-dim,#5f6675); margin:12px 0 5px; opacity:.75;
+    }
+    .mech-nav-group:first-child .mech-nav-label{ margin-top:0; }
+    .mech-nav-link{
+      display:block; padding:5px 10px; border-radius:8px; text-decoration:none;
+      font-family:'Inter',sans-serif; font-size:12.5px; color:var(--ink-dim,#5f6675);
+      border-left:2px solid transparent;
+      transition:background .12s,color .12s,border-color .12s;
+    }
+    .mech-nav-link:hover{ background:rgba(61,157,255,.09); color:var(--blue-dark,#2b7fd6); }
+    .mech-nav-link.is-active{
+      color:var(--blue-dark,#2b7fd6); background:rgba(61,157,255,.13);
+      border-left-color:var(--blue,#3d9dff); font-weight:700;
+    }
+  }
+
 </style>
 <script type="application/ld+json">
 {
@@ -230,7 +264,7 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is Catch Tank (CT) in Pokémon GO solo raids?",
+      "name": "What is Catch Tank in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Catch tanks intercept and absorb energy from a high-damaging charge move. The energy absorbed is used to return their own quick, high-damage charge move."
@@ -246,7 +280,7 @@
     },
     {
       "@type": "Question",
-      "name": "What is Clean Exit (Exit) in Pokémon GO solo raids?",
+      "name": "What is Clean Exit in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Relobbying during a charge move's animation for maximum energy efficiency and time savings."
@@ -254,7 +288,7 @@
     },
     {
       "@type": "Question",
-      "name": "What is Rejoin (Rejoin) in Pokémon GO solo raids?",
+      "name": "What is Rejoin in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "A rejoin lasting 6.5–7 seconds, only utilizing potions to quickly re-enter the fight."
@@ -262,7 +296,7 @@
     },
     {
       "@type": "Question",
-      "name": "What is Execute (Execute) in Pokémon GO solo raids?",
+      "name": "What is Execute in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Executing a boss with a low animation-duration or low-cost charge move."
@@ -270,7 +304,7 @@
     },
     {
       "@type": "Question",
-      "name": "What is Hot Swap (HS) in Pokémon GO solo raids?",
+      "name": "What is Hot Swap in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Switching to the next available attacker when the current attacker cannot reach another charge move."
@@ -278,7 +312,7 @@
     },
     {
       "@type": "Question",
-      "name": "What is Recycle (RCY) in Pokémon GO solo raids?",
+      "name": "What is Recycle in Pokémon GO?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Reusing the same Main DPS Pokémon across multiple rejoins instead of a fresh one each time."
@@ -385,7 +419,10 @@
   </div>
 </div>
 
-<div class="container" id="container"></div>
+<div class="mech-layout">
+  <aside class="mech-nav-side"><nav id="mechNav" aria-label="Mechanics"></nav></aside>
+  <div class="container" id="container"></div>
+</div>
 
 <footer>Terms are defined as used within this archive; abbreviations match those shown on raid cards.</footer>
 
@@ -478,6 +515,63 @@ function clipHtml(clipUrl, uid, attribution){
 
 const EMBEDS = {};
 
+// ---- Mechanics menu ----
+// Built from SECTIONS after the async render, because the entries do not exist in the DOM
+// before that. Highlights the entry currently in view.
+function buildMechMenu(){
+  const nav = document.getElementById("mechNav");
+  if(!nav || !SECTIONS.length) return;
+  // Desktop only. The scroll listener and the menu markup are never created on narrow screens,
+  // so mobile carries no extra work and behaves exactly as it did before.
+  if(!window.matchMedia("(min-width:1000px)").matches) return;
+  const slugOf = n => n.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  nav.innerHTML = SECTIONS.map(sec => `
+    <div class="mech-nav-group">
+      <div class="mech-nav-label">${sec.title}</div>
+      ${sec.entries.map(e => `
+        <a class="mech-nav-link" href="#strategy-${slugOf(e.name)}"
+           data-target="strategy-${slugOf(e.name)}">${e.name}</a>`).join("")}
+    </div>`).join("");
+
+  const links = [...nav.querySelectorAll(".mech-nav-link")];
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  const targets = links.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  if(!targets.length) return;
+
+  let current = null;
+  const setActive = (id) => {
+    if(id === current) return;
+    current = id;
+    links.forEach(a => a.classList.toggle("is-active", a.dataset.target === id));
+    const a = byId.get(id);
+    if(a && nav.scrollHeight > nav.clientHeight + 4){
+      const top = a.offsetTop - nav.clientHeight / 2 + a.offsetHeight / 2;
+      nav.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
+  // The topmost entry that has passed the reading line wins. Picking whichever entry merely
+  // intersects made the highlight flicker between two while scrolling through a tall clip.
+  const onScroll = () => {
+    const line = window.innerHeight * 0.3;
+    let best = targets[0];
+    for(const t of targets){ if(t.getBoundingClientRect().top <= line) best = t; }
+    setActive(best.id);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  nav.addEventListener("click", ev => {
+    const a = ev.target.closest(".mech-nav-link");
+    if(!a) return;
+    ev.preventDefault();
+    const el = document.getElementById(a.dataset.target);
+    if(!el) return;
+    history.replaceState(null, "", "#" + a.dataset.target);
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
 function entryHtml(e, sectionIdx, entryIdx){
   const uid = `${sectionIdx}-${entryIdx}`;
   const slug = e.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -549,6 +643,7 @@ async function loadMechanics(){
 `).join("");
 
   initClipLazyLoad();   // must run after the sections exist in the DOM
+  buildMechMenu();
   scrollToHashTarget();
 }
 
