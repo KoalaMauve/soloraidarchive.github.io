@@ -2423,17 +2423,34 @@ function runCalculation(){
       const fainted = cumulativeDamage >= playerHp;
       const dps = fainted ? 0 : numerator / Math.max(seconds, 0.1);
 
-      // does the boss actually have time to land all n trailing fast moves inside this rotation?
+      // Two independent risks, both surfaced through the same badge.
       let risky = false;
-      let riskyNote = "";
+      const riskyNotes = [];
+
+      // 1. TIMING - does the boss actually have time to land all n trailing fast moves inside
+      //    this rotation?
       if(!fainted && n > 0){
         const landings = bossFMLandingTicks(mdBossFMAD_ticks, n);
         const nthLandingTick = landings[n - 1];
         if(nthLandingTick > ticks){
           risky = true;
-          riskyNote = `Boss's ${n === 1 ? "fast move" : n + "nd fast move"} lands at tick ${nthLandingTick.toFixed(1)}, after this rotation (${ticks.toFixed(1)}t) would already be done — you may not actually take all ${n} hit${n>1?"s":""} in practice.`;
+          riskyNotes.push(`Boss's ${n === 1 ? "fast move" : n + "nd fast move"} lands at tick ${nthLandingTick.toFixed(1)}, after this rotation (${ticks.toFixed(1)}t) would already be done \u2014 you may not actually take all ${n} hit${n > 1 ? "s" : ""} in practice.`);
         }
       }
+
+      // 2. SURVIVAL MARGIN - a scenario that survives by less than one boss fast move is not
+      //    really survivable: the next hit faints you regardless of which fast move it is.
+      //    Previously only an outright faint was flagged, so a catch tank living on 2 HP showed a
+      //    clean DPS figure with nothing to indicate it dies to the very next tick.
+      if(!fainted){
+        const hpLeft = playerHp - cumulativeDamage;
+        if(bossFMDamage > 0 && hpLeft <= bossFMDamage){
+          risky = true;
+          riskyNotes.push(`Survives on ${Math.max(0, Math.round(hpLeft))} HP, but the boss's next fast move deals ${Math.round(bossFMDamage)} \u2014 one more hit faints you. Treat this as a hard ceiling, not a safe line.`);
+        }
+      }
+      const riskyNote = riskyNotes.join(" ");
+
       const taps = Math.round(buildupTicks / fm.ad) + mandatoryCovers + netResolveNerfCasts;
       const totalDamage = (taps * fastDamage) + (numCM * chargeDamage);
       const bossHits = 1 + n;                       // the absorbed charge move, plus n fast moves
@@ -2708,6 +2725,18 @@ function runCalculation(){
       }
     }
 
+
+    // SURVIVAL MARGIN - surviving by less than one boss fast move is not really surviving: the
+    // next hit faints you whichever fast move it is. Without this a catch tank living on 2 HP
+    // showed a clean DPS number with nothing marking it as a hard ceiling.
+    if(!fainted){
+      const hpLeft = playerHp - cumulativeDamage;
+      if(bossFMDamage > 0 && hpLeft <= bossFMDamage){
+        risky = true;
+        const note = `Survives on ${Math.max(0, Math.round(hpLeft))} HP, but the boss's next fast move deals ${Math.round(bossFMDamage)} \u2014 one more hit faints you. Treat this as a hard ceiling, not a safe line.`;
+        riskyNote = riskyNote ? riskyNote + " " + note : note;
+      }
+    }
     return {
       n, seconds: Math.max(seconds,0), ticks: Math.max(ticks,0),
       trailingDPS: null, ctDPS, fainted, cumulativeDamage, risky, riskyNote,
@@ -2872,6 +2901,18 @@ function runCalculation(){
       }
     }
 
+
+    // SURVIVAL MARGIN - surviving by less than one boss fast move is not really surviving: the
+    // next hit faints you whichever fast move it is. Without this a catch tank living on 2 HP
+    // showed a clean DPS number with nothing marking it as a hard ceiling.
+    if(!fainted){
+      const hpLeft = playerHp - cumulativeDamage;
+      if(bossFMDamage > 0 && hpLeft <= bossFMDamage){
+        risky = true;
+        const note = `Survives on ${Math.max(0, Math.round(hpLeft))} HP, but the boss's next fast move deals ${Math.round(bossFMDamage)} \u2014 one more hit faints you. Treat this as a hard ceiling, not a safe line.`;
+        riskyNote = riskyNote ? riskyNote + " " + note : note;
+      }
+    }
     return {
       n, seconds: Math.max(seconds,0), ticks: Math.max(ticks,0),
       trailingDPS, ctDPS, fainted, cumulativeDamage, risky, riskyNote,
@@ -2968,7 +3009,7 @@ function runCalculation(){
             <td>${formatTime(r.seconds, r.ticks)}</td>
             <td class="dps-val">${r.ctDPS.toFixed(1)} dps ${rejoinBadgeHtml(r.ctDPS)}${r.risky ? ` <span class="risky-badge" title="${r.riskyNote.replace(/"/g,'&quot;')}">⚠️ risky</span>` : ""}</td>`
               : `
-            <td class="dps-val">${r.trailingDPS.toFixed(1)} dps<span class="cell-duration">${formatTime(r.trailingSeconds, r.trailingTicks)}</span></td>
+            <td class="dps-val">${r.trailingDPS.toFixed(1)} dps${r.risky ? ` <span class="risky-badge" title="${r.riskyNote.replace(/"/g,'&quot;')}">⚠️ risky</span>` : ""}<span class="cell-duration">${formatTime(r.trailingSeconds, r.trailingTicks)}</span></td>
             <td class="dps-val">${r.ctDPS.toFixed(1)} dps ${rejoinBadgeHtml(r.ctDPS)}${r.risky ? ` <span class="risky-badge" title="${r.riskyNote.replace(/"/g,'&quot;')}">⚠️ risky</span>` : ""}<span class="cell-duration">${formatTime(r.ctSeconds, r.ctTicks)}</span></td>`}
           </tr>
         `;
