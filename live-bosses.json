@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T07:57:38.301878+00:00",
+  "generatedAt": "2026-09-20T13:15:27.459899+00:00",
   "dateGroups": [
     {
       "startDate": null,
@@ -174,19 +174,6 @@
           "name": "Mega Beedrill",
           "archivePage": "tier4-raids.html",
           "difficulty": "1 \u2b50",
-          "weather": "Extreme"
-        }
-      ]
-    },
-    {
-      "startDate": null,
-      "endDate": "Sep 19, 2026",
-      "category": "rotation",
-      "bosses": [
-        {
-          "name": "Mega Staraptor",
-          "archivePage": "tier4-raids.html",
-          "difficulty": "3 \u2b50",
           "weather": "Extreme"
         }
       ]
