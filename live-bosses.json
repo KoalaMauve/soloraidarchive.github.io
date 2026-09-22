@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-09-22T13:43:20.939454+00:00",
+  "generatedAt": "2026-09-22T18:23:00.874614+00:00",
   "dateGroups": [
+    {
+      "startDate": "Sep 30, 2026",
+      "endDate": "Oct 6, 2026",
+      "category": "rotation",
+      "bosses": [
+        {
+          "name": "Xerneas",
+          "archivePage": "tier5-raids.html",
+          "difficulty": "4 \u2b50",
+          "weather": "Snow"
+        },
+        {
+          "name": "Mega Victreebel",
+          "archivePage": "tier4-raids.html",
+          "difficulty": "1 \u2b50",
+          "weather": "Extreme"
+        }
+      ]
+    },
     {
       "startDate": null,
       "endDate": "Sep 22, 2026",
@@ -79,25 +98,6 @@
           "name": "Mega Charizard Y",
           "archivePage": "tier4-raids.html",
           "difficulty": "2 \u2b50",
-          "weather": "Extreme"
-        }
-      ]
-    },
-    {
-      "startDate": "Sep 30, 2026",
-      "endDate": "Oct 6, 2026",
-      "category": "rotation",
-      "bosses": [
-        {
-          "name": "Xerneas",
-          "archivePage": "tier5-raids.html",
-          "difficulty": "4 \u2b50",
-          "weather": "Snow"
-        },
-        {
-          "name": "Mega Victreebel",
-          "archivePage": "tier4-raids.html",
-          "difficulty": "1 \u2b50",
           "weather": "Extreme"
         }
       ]
