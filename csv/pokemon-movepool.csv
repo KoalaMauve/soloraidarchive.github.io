@@ -4677,6 +4677,10 @@ mega manectric,Thunder,charge,0
 mega manectric,Wild Charge,charge,0
 mega manectric,Overheat,charge,0
 mega manectric,Psychic Fangs,charge,0
+mega manectric,Discharge+,charge,1
+mega manectric,Discharge++,charge,1
+mega manectric,Discharge+++,charge,1
+mega manectric,Discharge++++,charge,1
 shadow manectric,Charge Beam,fast,0
 shadow manectric,Snarl,fast,0
 shadow manectric,Thunder Fang,fast,0
