@@ -1,5 +1,71 @@
 [
   {
+    "commit": "4cc6ffb9704fbeb341a457a28a72371e155d08e4",
+    "date": "2026-09-27T12:19:45-07:00",
+    "entries": [
+      {
+        "boss": "Mega Venusaur",
+        "star": "4 \u2b50",
+        "strategy": "Recycle",
+        "weather": "Clear",
+        "ae": "",
+        "fast": "Any",
+        "charge": "Any",
+        "vod": "https://youtu.be/9dRKROTe6ho",
+        "archivePage": "tier4-raids.html",
+        "archiveLabel": "Mega"
+      },
+      {
+        "boss": "Mega Venusaur",
+        "star": "4 \u2b50",
+        "strategy": "Hot Swap",
+        "weather": "Clear",
+        "ae": "",
+        "fast": "Vine Whip",
+        "charge": "Petal Blizzard",
+        "vod": "https://youtu.be/WFWEs3m_N-w?si=R5YRijjzEhw8HpdL",
+        "archivePage": "tier4-raids.html",
+        "archiveLabel": "Mega"
+      },
+      {
+        "boss": "Xurkitree",
+        "star": "5.5 \u2b50",
+        "strategy": "Hot Swap/CT",
+        "weather": "Rainy",
+        "ae": "sword",
+        "fast": "Any",
+        "charge": "Thunder",
+        "vod": "https://x.com/hwangokhone/status/2103085995222782341",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Buzzwole",
+        "star": "2 \u2b50",
+        "strategy": "",
+        "weather": "Windy",
+        "ae": "",
+        "fast": "Any",
+        "charge": "Lunge",
+        "vod": "https://youtu.be/E2faw71f7zQ?si=TIbdhvbeAJneSPed",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      },
+      {
+        "boss": "Lunala",
+        "star": "3 \u2b50",
+        "strategy": "",
+        "weather": "Extreme",
+        "ae": "",
+        "fast": "Air Slash",
+        "charge": "Psychic",
+        "vod": "https://youtu.be/qdrk_MEsAzg?si=mF47LCYt_IG4ZIfK",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "4704fd0466a4d14e7adf0ff8a979d21e6401bb41",
     "date": "2026-09-23T20:04:48-07:00",
     "entries": [
@@ -12,48 +78,6 @@
         "fast": "Any",
         "charge": "Discharge",
         "vod": "https://fixupx.com/hwangokhone/status/2102915374908076110",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "306fb8ebf42ff82624b9c772331deec683be51a1",
-    "date": "2026-09-23T11:31:24-07:00",
-    "entries": [
-      {
-        "boss": "Xurkitree",
-        "star": "5.5 \u2b50",
-        "strategy": "Hot Swap/CT",
-        "weather": "Cloudy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Dazzling Gleam",
-        "vod": "https://x.com/hwangokhone/status/2102619779702169685",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Zamazenta Hero",
-        "star": "6 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Metal Claw",
-        "charge": "Close Combat",
-        "vod": "https://youtu.be/OmSege3jlEU",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Zamazenta Hero",
-        "star": "6 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Quick Attack",
-        "charge": "Close Combat",
-        "vod": "https://www.youtube.com/watch?v=NxqSJopuWV8",
         "archivePage": "tier5-raids.html",
         "archiveLabel": "Legendary"
       }
