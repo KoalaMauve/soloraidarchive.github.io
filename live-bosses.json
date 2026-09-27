@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T18:43:27.405725+00:00",
+  "generatedAt": "2026-09-27T23:27:03.498511+00:00",
   "dateGroups": [
     {
       "startDate": "Sep 30, 2026",
@@ -121,8 +121,8 @@
         {
           "name": "Buzzwole",
           "archivePage": "tier5-raids.html",
-          "difficulty": "3 \u2b50",
-          "weather": "Extreme"
+          "difficulty": "2 \u2b50",
+          "weather": "Windy"
         },
         {
           "name": "Pheromosa",
