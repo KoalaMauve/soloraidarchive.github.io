@@ -116,7 +116,14 @@ def extract_entries(rows, cfg):
         vod = find_vod_url(row)
         tier_match = re.search(r"[\d.]+", star)
         tier = tier_match.group(0) if tier_match else star
-        key = (boss.lower(), strat.lower(), weather.lower(), tier, fast.lower(), charge.lower())
+        # The VOD is part of the key WHEN THERE IS ONE. Without it, two genuinely different
+        # submissions for the same boss/strategy/weather/tier collapse into one key and the
+        # second is invisible to this tracker: six real Xurkitree 5.5 rows reduced to three
+        # keys, so newly pushed entries silently never appeared in "recently published".
+        # A row with no VOD yet contributes an empty string here and behaves exactly as before,
+        # which is what the fallback on the core columns was there to protect.
+        key = (boss.lower(), strat.lower(), weather.lower(), tier, fast.lower(), charge.lower(),
+               vod.strip().lower())
         entries[key] = {
             "boss": boss, "star": star, "strategy": strat, "weather": weather,
             "ae": classify_ae(ae_cell), "fast": fast, "charge": charge, "vod": vod,
