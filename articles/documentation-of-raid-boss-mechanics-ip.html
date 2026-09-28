@@ -260,6 +260,45 @@
     0%{ background-position: 0 0, 0% 0; }
     100%{ background-position: 0 0, 100% 0; }
   }
+
+  /* ---- Article table of contents (desktop only) ----
+     Mirrors the Solo Raid Mechanics sidebar. Below 1080px it is not rendered at all and the page
+     is byte-for-byte what it is today, so mobile is untouched. */
+  .article-toc{ display:none; }
+  @media (min-width:1080px){
+    .page.has-toc{
+      display:grid; grid-template-columns:230px minmax(0,1fr); gap:34px;
+      max-width:1240px; align-items:start;
+    }
+    /* Every other child of .page - title, meta row, edit links, body - belongs in the right
+       column. Without this they become grid items in the left column alongside the contents. */
+    .page.has-toc > *:not(.article-toc){ grid-column:2; }
+    .page.has-toc > .article-toc{ grid-column:1; grid-row:1 / span 99; }
+    .article-toc{
+      display:block; position:sticky; top:84px;
+      max-height:calc(100vh - 120px); overflow-y:auto; padding-right:6px;
+    }
+    .article-toc-label{
+      font-family:'Manrope',sans-serif; font-weight:800; font-size:10px; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--ink-dim,#5f6675); opacity:.75; margin:0 0 8px 10px;
+    }
+    .toc-link{
+      display:block; padding:5px 10px; border-radius:8px; text-decoration:none;
+      font-family:'Inter',sans-serif; color:var(--ink-dim,#5f6675);
+      border-left:2px solid transparent; line-height:1.35;
+      transition:background .12s, color .12s, border-color .12s;
+    }
+    .toc-l2{ font-size:12.5px; font-weight:700; margin-top:6px; }
+    .toc-l3{ font-size:11.5px; padding-left:22px; }
+    .toc-link:hover{ background:rgba(61,157,255,.09); color:var(--blue-dark,#2b7fd6); }
+    .toc-link.is-active{
+      color:var(--blue-dark,#2b7fd6); background:rgba(61,157,255,.13);
+      border-left-color:var(--blue,#3d9dff); font-weight:800;
+    }
+    /* Anchored jumps must clear the sticky site header. */
+    .article-body h2, .article-body h3{ scroll-margin-top:90px; }
+  }
+
 </style>
 </head>
 <body>
@@ -359,7 +398,7 @@
   </div>
 </div>
 
-<div class="page">
+<div class="page has-toc">
   <div class="article-eyebrow">Research Article</div>
   <h1 class="article-title">Documentation of Raid Boss Mechanics (IP)</h1>
   <div class="edit-guide-row">
@@ -370,7 +409,9 @@
     <span class="article-category">Meta Analysis</span>
     <span class="article-byline">By SpiritedBloom</span>
   </div>
-  <div class="article-body"><h2>Section 1.0: Boss Stats</h2><p>Bosses are assigned CPMs, flat health and gain 100% IV's. External modifiers, such as weather boost and shadow boost, are applied outside of their effective stats. </p><h3>1.0.0: Tier 4-5: </h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 4: 9000 HP, 0.79 CPM, 300s </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 5: 15000 HP, 0.79 CPM, 300s </li></ol><h3>1.0.1: Tiers 6+</h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 6: 22500 HP, 0.79 CPM, 300s </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Elite: 25000 HP, 1.00 CPM, 300s</li></ol><h3><strong>1.0.2: Shadow Tier 5</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow T5: 15000 HP, 0.82 CPM, Shadow Debuff, 300s</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>eff_def = (base_def+15)*0.82</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>eff_atk = (base_atk+15)*0.82</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow T5 Enraged: Adds 2.2x effective defense &amp; 0.8x effective attack.</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_def = floor(eff_def + 2.2*eff_def) ≈ 3.2x Defense</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_atk = floor(eff_atk + 0.8*eff_atk) ≈ 1.8x Attack</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow Buff additionally applies a 20% increase in attack and 20% decrease in defense. This applies outside the internal stats and on the same layer as other modifiers such as Weather Boost, Blade Boost etc. </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_enr_def = enr_def * 0.8333 </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_enr_atk = enr_atk * 1.2 </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_eff_def = eff_def * 0.8333</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_eff_atk = eff_atk * 1.2</li></ol><h3><strong>1.0.3: Super Mega Raids (T7)</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Super Mega T7: 25000 HP, 0.79 CPM, 300s</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Super Mega T7: (Enraged): Gains 3x base defense and 0.5x attack</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_def = floor(eff_def + 3.0*eff_def) ≈ 4x Defense</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_atk = floor(eff_atk + 0.5*eff_atk) ≈ 1.5x Attack</li></ol><h3><strong>1.0.4: Enrage Stat Activation &amp; Subdues</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Enrage activates once a boss reaches ≤ 80% health and subdues when the boss reaches ≤ 20% health.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow Tier 5 bosses when subdued gain a defense and attack drop. This is currently unknown. </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Passover damage through the threshold is calculated with the boss' stats at cast time, not during landing time. This allows carefully planned hit timings prior to enrage. </li></ol><h2>Section 1.1: Boss Attack Patterns </h2><h3>1.1.0: Raid Boss base attack pattern</h3><p>Raid bosses randomly wait 1.5 or 2.0s until casting the next move. The probability of the picking either delay appears to be 50%. </p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>FM Cadence = Rand(1.5s ,2.0s) + FM_AD </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>CM Cadence = Rand(1.5s ,2.0s) + CM_AD</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>CM only occurs when boss has enough energy.</li></ol><h3><strong>1.1.1: Post CM Chained attack</strong></h3><p>Bosses always chain an attack after casting their charge move. A chained attack is casted precisely 0.5s, 1 turn, after the previous charge move attack lands. </p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Chained_FM = 0.5s + FM_AD </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Chained_CM = 0.5s + CM_AD</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>Chained_CM only occurs when boss has enough energy.</li></ol><h3><strong>1.1.2: Raid Boss beginning attack pattern: </strong></h3><p><em>At the start of the fight the first two fast moves come out quicker than normal. This phenomena does not reoccur during the rest of the raid. </em></p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>TBD </li></ol><h2>Section 1.2: Energy Absorption and Rounding</h2><h3>1.2.0: Boss and player energy absorption</h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>50% of damage taken is gained as energy, <strong>rounded up. E.g: 45 damage → 23 energy</strong></li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>50% of damage taken by the boss is also given as energy. </li></ol><h3>1.2.1: Energy absorption timings. </h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy is absorbed by the boss upon <strong>player move cast. </strong>Meaning the first turn of a move.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy is absorbed by the player upon <strong>boss move landing. </strong>Meaning the last turn of a move. </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy gained from casting fast moves by the player or boss resolves after the first turn. E.g: a fast move psycho cut gains energy on 0.5s when casted at 0.0s. </li></ol><h2>Section 1.3: Chat &amp; Overhead Text</h2><h3><strong>1.3.0: Charge Move Text </strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Charge move attack text seems to appear at the end of the first turn of its animation duration. </li></ol><h3><strong>1.3.1: Environmental Boosts</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Adventure effect and weather text are displayed upon entering the arena. Both are redisplayed when re-joining the lobby from a heal.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Weather text is additionally re-displayed when a swap occurs. But adventure effect text is not. </li></ol><h3><strong>1.3.2: Overhead Texts</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Effectiveness texts for both the player and boss are displayed upon hit landing. This seems to occur on the beginning of the final turn of the casted move. </li></ol></div>
+  <aside class="article-toc"><div class="article-toc-label">On this page</div>
+    <nav id="articleToc" aria-label="Table of contents"></nav></aside>
+  <div class="article-body" id="articleBody"><h2>Section 1.0: Boss Stats</h2><p>Bosses are assigned CPMs, flat health and gain 100% IV's. External modifiers, such as weather boost and shadow boost, are applied outside of their effective stats. </p><h3>1.0.0: Tier 4-5: </h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 4: 9000 HP, 0.79 CPM, 300s </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 5: 15000 HP, 0.79 CPM, 300s </li></ol><h3>1.0.1: Tiers 6+</h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Tier 6: 22500 HP, 0.79 CPM, 300s </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Elite: 25000 HP, 1.00 CPM, 300s</li></ol><h3><strong>1.0.2: Shadow Tier 5</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow T5: 15000 HP, 0.82 CPM, Shadow Debuff, 300s</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>eff_def = (base_def+15)*0.82</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>eff_atk = (base_atk+15)*0.82</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow T5 Enraged: Adds 2.2x effective defense &amp; 0.8x effective attack.</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_def = floor(eff_def + 2.2*eff_def) ≈ 3.2x Defense</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_atk = floor(eff_atk + 0.8*eff_atk) ≈ 1.8x Attack</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow Buff additionally applies a 20% increase in attack and 20% decrease in defense. This applies outside the internal stats and on the same layer as other modifiers such as Weather Boost, Blade Boost etc. </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_enr_def = enr_def * 0.8333 </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_enr_atk = enr_atk * 1.2 </li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_eff_def = eff_def * 0.8333</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>shadow_eff_atk = eff_atk * 1.2</li></ol><h3><strong>1.0.3: Super Mega Raids (T7)</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Super Mega T7: 25000 HP, 0.79 CPM, 300s</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Super Mega T7: (Enraged): Gains 3x base defense and 0.5x attack</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_def = floor(eff_def + 3.0*eff_def) ≈ 4x Defense</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>enr_atk = floor(eff_atk + 0.5*eff_atk) ≈ 1.5x Attack</li></ol><h3><strong>1.0.4: Enrage Stat Activation &amp; Subdues</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Enrage activates once a boss reaches ≤ 80% health and subdues when the boss reaches ≤ 20% health.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Shadow Tier 5 bosses when subdued gain a defense and attack drop. This is currently unknown. </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Passover damage through the threshold is calculated with the boss' stats at cast time, not during landing time. This allows carefully planned hit timings prior to enrage. </li></ol><h2>Section 1.1: Boss Attack Patterns </h2><h3>1.1.0: Raid Boss base attack pattern</h3><p>Raid bosses randomly wait 1.5 or 2.0s until casting the next move. The probability of the picking either delay appears to be 50%. </p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>FM Cadence = Rand(1.5s ,2.0s) + FM_AD </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>CM Cadence = Rand(1.5s ,2.0s) + CM_AD</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>CM only occurs when boss has enough energy.</li></ol><h3><strong>1.1.1: Post CM Chained attack</strong></h3><p>Bosses always chain an attack after casting their charge move. A chained attack is casted precisely 0.5s, 1 turn, after the previous charge move attack lands. </p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Chained_FM = 0.5s + FM_AD </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Chained_CM = 0.5s + CM_AD</li><li data-list="bullet" class="ql-indent-1"><span class="ql-ui" contenteditable="false"></span>Chained_CM only occurs when boss has enough energy.</li></ol><h3><strong>1.1.2: Raid Boss beginning attack pattern: </strong></h3><p><em>At the start of the fight the first two fast moves come out quicker than normal. This phenomena does not reoccur during the rest of the raid. </em></p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>TBD </li></ol><h2>Section 1.2: Energy Absorption and Rounding</h2><h3>1.2.0: Boss and player energy absorption</h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>50% of damage taken is gained as energy, <strong>rounded up. E.g: 45 damage → 23 energy</strong></li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>50% of damage taken by the boss is also given as energy. </li></ol><h3>1.2.1: Energy absorption timings. </h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy is absorbed by the boss upon <strong>player move cast. </strong>Meaning the first turn of a move.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy is absorbed by the player upon <strong>boss move landing. </strong>Meaning the last turn of a move. </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Energy gained from casting fast moves by the player or boss resolves after the first turn. E.g: a fast move psycho cut gains energy on 0.5s when casted at 0.0s. </li></ol><h2>Section 1.3: Chat &amp; Overhead Text</h2><h3><strong>1.3.0: Charge Move Text </strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Charge move attack text seems to appear at the end of the first turn of its animation duration. </li></ol><h3><strong>1.3.1: Environmental Boosts</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Adventure effect and weather text are displayed upon entering the arena. Both are redisplayed when re-joining the lobby from a heal.</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Weather text is additionally re-displayed when a swap occurs. But adventure effect text is not. </li></ol><h3><strong>1.3.2: Overhead Texts</strong></h3><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Effectiveness texts for both the player and boss are displayed upon hit landing. This seems to occur on the beginning of the final turn of the casted move. </li></ol></div>
 </div>
 
 <div class="img-lightbox-overlay" id="imgLightboxOverlay">
@@ -520,5 +561,68 @@ document.addEventListener('mouseout', (e) => {
 });
 </script>
 
+<script>
+// ---- Article table of contents ----
+// Built from the rendered h2/h3 headings, so writers add nothing to the article - the outline is
+// whatever structure they already wrote. Heading ids are generated here rather than stored, which
+// keeps existing articles working untouched.
+function buildArticleToc(root, nav){
+  if(!root || !nav) return;
+  const heads = [...root.querySelectorAll("h2, h3")];
+  if(heads.length < 3){ nav.closest(".article-toc").hidden = true; return; }   // too short to need one
+
+  const used = new Set();
+  const slug = (txt) => {
+    let s = txt.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
+    let out = s, n = 2;
+    while(used.has(out)) out = s + "-" + n++;        // duplicate headings must not collide
+    used.add(out);
+    return out;
+  };
+
+  nav.innerHTML = heads.map(h => {
+    if(!h.id) h.id = slug(h.textContent);
+    const lvl = h.tagName === "H2" ? "toc-l2" : "toc-l3";
+    return `<a class="toc-link ${lvl}" href="#${h.id}" data-target="${h.id}">${h.textContent.trim()}</a>`;
+  }).join("");
+
+  const links = [...nav.querySelectorAll(".toc-link")];
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  let current = null;
+  const setActive = (id) => {
+    if(id === current) return;
+    current = id;
+    links.forEach(a => a.classList.toggle("is-active", a.dataset.target === id));
+    const a = byId.get(id);
+    // Keep the active entry visible without dragging the page around.
+    if(a && nav.scrollHeight > nav.clientHeight + 4){
+      nav.scrollTo({ top: a.offsetTop - nav.clientHeight / 2 + a.offsetHeight / 2, behavior: "smooth" });
+    }
+  };
+
+  // The topmost heading past the reading line wins. Using "whichever is intersecting" made the
+  // highlight flicker between two headings inside a long section.
+  const onScroll = () => {
+    const line = window.innerHeight * 0.28;
+    let best = heads[0];
+    for(const h of heads){ if(h.getBoundingClientRect().top <= line) best = h; }
+    setActive(best.id);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  nav.addEventListener("click", (ev) => {
+    const a = ev.target.closest(".toc-link");
+    if(!a) return;
+    ev.preventDefault();
+    const el = document.getElementById(a.dataset.target);
+    if(!el) return;
+    history.replaceState(null, "", "#" + a.dataset.target);
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+buildArticleToc(document.getElementById("articleBody"), document.getElementById("articleToc"));
+</script>
 </body>
 </html>
