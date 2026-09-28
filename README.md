@@ -33,7 +33,6 @@ soloraidarchive.github.io/
 ├── tier6-elite-raids.html      # Mega Legendary / Elite raid archive (Tier 6)
 ├── guides.html                 # links into data/guides/
 ├── articles.html               # links into articles/
-├── ct-calculator.html          # Catch Tank calculator
 ├── dps-calculator.html         # DPS calculator
 ├── ct-database.html            # community-submitted Catch Tank test logs
 ├── move-data.html              # move data reference table
