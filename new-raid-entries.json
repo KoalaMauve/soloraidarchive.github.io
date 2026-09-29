@@ -1,5 +1,23 @@
 [
   {
+    "commit": "e41721882cbba46b4716896f7e2a4a180ca207cc",
+    "date": "2026-09-28T21:42:19-07:00",
+    "entries": [
+      {
+        "boss": "Mega Rayquaza",
+        "star": "4 \u2b50",
+        "strategy": "Catch Tank",
+        "weather": "Snow",
+        "ae": "sword",
+        "fast": "Air Slash",
+        "charge": "Outrage",
+        "vod": "",
+        "archivePage": "tier6-elite-raids.html",
+        "archiveLabel": "Mega Legendary & Elite"
+      }
+    ]
+  },
+  {
     "commit": "4cc6ffb9704fbeb341a457a28a72371e155d08e4",
     "date": "2026-09-27T12:19:45-07:00",
     "entries": [
@@ -60,24 +78,6 @@
         "fast": "Air Slash",
         "charge": "Psychic",
         "vod": "https://youtu.be/qdrk_MEsAzg?si=mF47LCYt_IG4ZIfK",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      }
-    ]
-  },
-  {
-    "commit": "4704fd0466a4d14e7adf0ff8a979d21e6401bb41",
-    "date": "2026-09-23T20:04:48-07:00",
-    "entries": [
-      {
-        "boss": "Xurkitree",
-        "star": "5.5 \u2b50",
-        "strategy": "Hot Swap/CT",
-        "weather": "Rainy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Discharge",
-        "vod": "https://fixupx.com/hwangokhone/status/2102915374908076110",
         "archivePage": "tier5-raids.html",
         "archiveLabel": "Legendary"
       }
