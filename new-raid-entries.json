@@ -1,5 +1,23 @@
 [
   {
+    "commit": "b3cc6a6809b0beb25eb4aad4cce8368f5f475398",
+    "date": "2026-09-30T10:49:50-07:00",
+    "entries": [
+      {
+        "boss": "Xerneas",
+        "star": "6 \u2b50",
+        "strategy": "CT/TPC",
+        "weather": "Partly Cloudy",
+        "ae": "sword",
+        "fast": "Zen Headbutt",
+        "charge": "Giga Impact",
+        "vod": "https://x.com/hwangokhone/status/2105125686763835765",
+        "archivePage": "tier5-raids.html",
+        "archiveLabel": "Legendary"
+      }
+    ]
+  },
+  {
     "commit": "e41721882cbba46b4716896f7e2a4a180ca207cc",
     "date": "2026-09-28T21:42:19-07:00",
     "entries": [
@@ -14,72 +32,6 @@
         "vod": "",
         "archivePage": "tier6-elite-raids.html",
         "archiveLabel": "Mega Legendary & Elite"
-      }
-    ]
-  },
-  {
-    "commit": "4cc6ffb9704fbeb341a457a28a72371e155d08e4",
-    "date": "2026-09-27T12:19:45-07:00",
-    "entries": [
-      {
-        "boss": "Mega Venusaur",
-        "star": "4 \u2b50",
-        "strategy": "Recycle",
-        "weather": "Clear",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Any",
-        "vod": "https://youtu.be/9dRKROTe6ho",
-        "archivePage": "tier4-raids.html",
-        "archiveLabel": "Mega"
-      },
-      {
-        "boss": "Mega Venusaur",
-        "star": "4 \u2b50",
-        "strategy": "Hot Swap",
-        "weather": "Clear",
-        "ae": "",
-        "fast": "Vine Whip",
-        "charge": "Petal Blizzard",
-        "vod": "https://youtu.be/WFWEs3m_N-w?si=R5YRijjzEhw8HpdL",
-        "archivePage": "tier4-raids.html",
-        "archiveLabel": "Mega"
-      },
-      {
-        "boss": "Xurkitree",
-        "star": "5.5 \u2b50",
-        "strategy": "Hot Swap/CT",
-        "weather": "Rainy",
-        "ae": "sword",
-        "fast": "Any",
-        "charge": "Thunder",
-        "vod": "https://x.com/hwangokhone/status/2103085995222782341",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Buzzwole",
-        "star": "2 \u2b50",
-        "strategy": "",
-        "weather": "Windy",
-        "ae": "",
-        "fast": "Any",
-        "charge": "Lunge",
-        "vod": "https://youtu.be/E2faw71f7zQ?si=TIbdhvbeAJneSPed",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
-      },
-      {
-        "boss": "Lunala",
-        "star": "3 \u2b50",
-        "strategy": "",
-        "weather": "Extreme",
-        "ae": "",
-        "fast": "Air Slash",
-        "charge": "Psychic",
-        "vod": "https://youtu.be/qdrk_MEsAzg?si=mF47LCYt_IG4ZIfK",
-        "archivePage": "tier5-raids.html",
-        "archiveLabel": "Legendary"
       }
     ]
   }
