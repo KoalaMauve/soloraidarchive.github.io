@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ&#39;s — Solo Raid Archive</title>
+<!-- Ported from data/article-template.html, which had these; pages built here did not. -->
+<meta name="description" content="FAQ&#39;s — a Community guide from the Solo Raid Archive, the community collection of solo raid strategies, catch tanks and battle parties for Pokémon GO.">
+<meta property="og:description" content="FAQ&#39;s — a Community guide from the Solo Raid Archive.">
 <link rel="icon" href="../assets/icons/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
@@ -48,7 +51,7 @@ if ("serviceWorker" in navigator) {
   .page{ max-width:680px; margin:0 auto; padding:20px 20px 60px; }
   .article-eyebrow{ font-family:'Manrope', sans-serif; font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color: var(--blue-dark); text-align:center; margin-bottom:8px; }
   .article-title{ font-family:'Manrope', sans-serif; font-weight:800; font-size:26px; margin:0 0 8px; text-align:center; line-height:1.3; }
-  .edit-guide-row{ text-align:center; margin-bottom:14px; }
+  .edit-guide-row{ display:flex; justify-content:center; gap:8px; }
   .edit-guide-btn{
     display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700;
     color: var(--blue-dark); background: var(--accent-soft); padding:6px 14px; border-radius:999px;
@@ -56,16 +59,35 @@ if ("serviceWorker" in navigator) {
   }
   .edit-guide-btn:hover{ background:#dcecff; }
   [data-theme="dark"] .edit-guide-btn:hover{ background:#2a3555; }
-  .article-meta-row{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:28px; flex-wrap:wrap; }
+  .article-meta-row{ display:flex; align-items:center; justify-content:center; gap:10px 8px; margin:14px 0 28px; flex-wrap:wrap; }
+  .article-meta-sep{ display:none; }
+  /* Category tag: square-cornered tinted block with a coloured left edge, so it cannot be mistaken
+     for the rounded blue link buttons beside it. Each category has its own colour and none is blue
+     (blue means "link"). An unlisted category falls back to neutral grey. Keep in step with the
+     same block in editor.html's article preview. */
   .article-category{
-    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:11px;
-    text-transform:uppercase; letter-spacing:0.03em; color: var(--blue-dark); background: var(--accent-soft);
-    padding:5px 12px; border-radius:999px;
+    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:10.5px;
+    text-transform:uppercase; letter-spacing:0.06em; line-height:1.3;
+    color:var(--cat); background:var(--cat-soft); border-left:3px solid var(--cat);
+    border-radius:4px; padding:4px 10px 4px 8px;
+    --cat:#5f6675; --cat-soft:rgba(95,102,117,.14);
   }
+  [data-theme="dark"] .article-category{ --cat:#aab1c0; --cat-soft:rgba(170,177,192,.14); }
+  .article-category[data-category="Meta Analysis"]{ --cat:#9a6300; --cat-soft:rgba(245,185,74,.16); }
+  [data-theme="dark"] .article-category[data-category="Meta Analysis"]{ --cat:#f5b94a; --cat-soft:rgba(245,185,74,.14); }
+  .article-category[data-category="Tips & Tricks"]{ --cat:#16865d; --cat-soft:rgba(79,209,161,.16); }
+  [data-theme="dark"] .article-category[data-category="Tips & Tricks"]{ --cat:#4fd1a1; --cat-soft:rgba(79,209,161,.14); }
+  .article-category[data-category="Game Update"]{ --cat:#6b46c1; --cat-soft:rgba(185,156,255,.2); }
+  [data-theme="dark"] .article-category[data-category="Game Update"]{ --cat:#b99cff; --cat-soft:rgba(185,156,255,.14); }
+  .article-category[data-category="Community"]{ --cat:#c2415a; --cat-soft:rgba(255,143,163,.18); }
+  [data-theme="dark"] .article-category[data-category="Community"]{ --cat:#ff8fa3; --cat-soft:rgba(255,143,163,.14); }
   .article-byline{ font-size:12.5px; color: var(--text-dim); }
   .article-body{
     background: var(--card); border-radius:16px; padding:24px 26px; font-size:15px; line-height:1.4;
   }
+  /* Long pasted tokens (a YouTube URL) must wrap rather than widen the page on a 320px phone.
+     Ported from data/article-template.html. */
+  .article-body{ overflow-wrap:anywhere; }
   .article-body p{ margin:0 0 14px; }
   .article-body p:last-child{ margin-bottom:0; }
   .article-body strong{ font-weight:800; }
@@ -88,9 +110,9 @@ if ("serviceWorker" in navigator) {
   .article-body li[data-list="bullet"]::before{ content:"\2022"; display:inline-block; margin-left:-1.2em; margin-right:.3em; width:1em; }
   .article-body li[data-list="ordered"]{ counter-increment:list-0; }
   .article-body li[data-list="ordered"]::before{ content:counter(list-0) ". "; display:inline-block; margin-left:-1.4em; margin-right:.3em; width:1.2em; }
-  /* Nested list levels. Quill marks indented items with ql-indent-1 .. ql-indent-8
-     instead of nesting a real <ul>, so without these a sub-bullet rendered flush
-     against its parent and read as an ordinary row. */
+  /* Nested list levels. Quill marks an indented item with ql-indent-1 .. ql-indent-8
+     instead of nesting a real <ul>, so without these a sub-bullet renders flush against
+     its parent. Kept identical to data/article-template.html - see the note on the two copies. */
   .article-body li.ql-indent-1{ padding-left:1.6em; counter-reset:list-1; }
   .article-body li.ql-indent-2{ padding-left:3.2em; counter-reset:list-2; }
   .article-body li.ql-indent-3{ padding-left:4.8em; counter-reset:list-3; }
@@ -107,7 +129,6 @@ if ("serviceWorker" in navigator) {
   .article-body li.ql-indent-4[data-list="bullet"]::before,
   .article-body li.ql-indent-6[data-list="bullet"]::before,
   .article-body li.ql-indent-8[data-list="bullet"]::before{ content:"\25AA"; }
-
   .article-body img{ max-width:100%; height:auto; border-radius:8px; cursor:zoom-in; }
   @media (max-width: 600px){
     .article-body img[style*="float"]{ float:none !important; width:100% !important; margin:10px 0 !important; display:block; }
@@ -159,6 +180,22 @@ if ("serviceWorker" in navigator) {
   .battle-mon-icon img{ width:100%; height:100%; object-fit:contain; position:relative; z-index:2; }
   .battle-mon-meta{ color: var(--text-dim); font-size:11px; }
   .battle-mon-level{ font-weight:700; font-size:11px; color: var(--text); }
+  .role-badge{
+    display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase;
+    letter-spacing:0.03em; padding:1px 7px; border-radius:999px; margin:1px 4px 1px 0; vertical-align:1px;
+  }
+  .role-badge.role-main-dps{ background:#ffe1e1; color:#c62828; }
+  .role-badge.role-support-dps{ background:#dff5f3; color:#00897b; }
+  .role-badge.role-catch-tank{ background:#f2ebff; color:#7d4fd6; }
+  .role-badge.role-executor{ background:#e9e9eb; color:#292929; }
+  [data-theme="dark"] .role-badge.role-main-dps{ background:rgba(220,53,69,0.22); color:#ff9494; }
+  [data-theme="dark"] .role-badge.role-support-dps{ background:rgba(0,150,136,0.22); color:#5eded4; }
+  [data-theme="dark"] .role-badge.role-catch-tank{ background:rgba(155,123,240,0.2); color:#c1a8ff; }
+  [data-theme="dark"] .role-badge.role-executor{ background:rgba(255,255,255,0.14); color:#e4e4e6; }
+  // Level+role and the moveset are always stacked as two rows (level/role on top, moves
+  // underneath) - this used to force them onto one flex row with a middle-dot separator at
+  // >=601px, cramming everything onto one crowded line on desktop. Removed so the layout is the
+  // same clean two-row block at every width, matching what mobile already did by default.
   @media (min-width: 601px){
     .battle-mon{ padding:4px 0; }
   }
@@ -178,13 +215,14 @@ if ("serviceWorker" in navigator) {
     position:sticky; top:0; z-index:15; background: var(--bg1);
     padding: 10px 16px; border-bottom: 1px solid var(--border);
   }
-  .sticky-header-row{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; position:relative; }
+  /* min-height: room for the 44px hamburger (ported from data/article-template.html). */
+  .sticky-header-row{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; position:relative; min-height:44px; }
   .sticky-header-row .hamburger-btn{ position:absolute; right:0; }
   .page-title-sm{ font-family:'Manrope', sans-serif; font-weight:800; font-size:18px; margin:0; color: var(--text); text-align:center; }
 
   .hamburger-btn{
     flex-shrink:0; z-index:20; -webkit-tap-highlight-color:transparent;
-    width:38px; height:38px; border-radius:50%;
+    width:44px; height:44px; border-radius:50%;   /* 44px touch target, as on every other page */
     background: var(--card); border:2px solid var(--border);
     cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:4px; box-shadow: 0 3px 0 rgba(0,0,0,0.06); transition: transform .15s;
@@ -233,6 +271,42 @@ if ("serviceWorker" in navigator) {
     0%{ background-position: 0 0, 0% 0; }
     100%{ background-position: 0 0, 100% 0; }
   }
+
+  /* ---- Article table of contents (desktop only) ----
+     Built from the rendered h2/h3 on load, so nothing is stored in the article JSON and existing
+     articles gain it without being re-saved. Hidden below 1080px, so mobile is unchanged.
+     MIRROR OF data/article-template.html - this Worker embeds its own copy of the template and
+     never reads the repo one, so both files must be edited together. */
+  .article-toc{ display:none; }
+  @media (min-width:1080px){
+    .page.has-toc{ display:grid; grid-template-columns:230px minmax(0,1fr); column-gap:34px;
+      grid-template-rows:auto auto auto 1fr; max-width:1240px; align-items:start; }
+    .page.has-toc > *:not(.article-toc){ grid-column:2; }
+    .page.has-toc > .article-toc{ grid-column:1; grid-row:1 / -1; }
+    .article-toc[hidden]{ display:none !important; }
+    /* Header: left-aligned over the article, links and tags on one row. Applies with or without
+       a contents column, so short articles match long ones. */
+    .article-eyebrow, .article-title{ text-align:left; }
+    .article-eyebrow{ margin-bottom:2px; }
+    .article-title{ margin-bottom:0; }
+    .article-meta-row{ justify-content:flex-start; margin:10px 0 20px; }
+    .article-meta-sep{ display:block; width:1px; height:18px; margin:0 4px;
+      background:var(--text-dim); opacity:.35; }
+    .article-toc{ display:block; position:sticky; top:84px;
+      max-height:calc(100vh - 120px); overflow-y:auto; padding-right:6px; }
+    .article-toc-label{ font-family:'Manrope',sans-serif; font-weight:800; font-size:10px;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--ink-dim,#5f6675); opacity:.75; margin:0 0 8px 10px; }
+    .toc-link{ display:block; padding:5px 10px; border-radius:8px; text-decoration:none;
+      font-family:'Inter',sans-serif; color:var(--ink-dim,#5f6675);
+      border-left:2px solid transparent; line-height:1.35; }
+    .toc-l2{ font-size:12.5px; font-weight:700; margin-top:6px; }
+    .toc-l3{ font-size:11.5px; padding-left:22px; }
+    .toc-link:hover{ background:rgba(61,157,255,.09); color:var(--blue-dark,#2b7fd6); }
+    .toc-link.is-active{ color:var(--blue-dark,#2b7fd6); background:rgba(61,157,255,.13);
+      border-left-color:var(--blue,#3d9dff); font-weight:800; }
+    .article-body h2, .article-body h3{ scroll-margin-top:90px; }
+  }
+
 </style>
 </head>
 <body>
@@ -332,18 +406,21 @@ if ("serviceWorker" in navigator) {
   </div>
 </div>
 
-<div class="page">
+<div class="page has-toc">
   <div class="article-eyebrow">Research Article</div>
   <h1 class="article-title">FAQ&#39;s</h1>
-  <div class="edit-guide-row">
-    <a class="edit-guide-btn" href="../articles.html">&#8592; All Articles</a>
-    <a class="edit-guide-btn" href="../editor.html?mode=article&article=faq-s">&#9998; Edit this article</a>
-  </div>
   <div class="article-meta-row">
-    <span class="article-category">Community</span>
+    <div class="edit-guide-row">
+      <a class="edit-guide-btn" href="../articles.html">&#8592; All Articles</a>
+      <a class="edit-guide-btn" href="../editor.html?mode=article&article=faq-s">&#9998; Edit this article</a>
+    </div>
+    <span class="article-meta-sep" aria-hidden="true"></span>
+    <span class="article-category" data-category="Community">Community</span>
     <span class="article-byline">By SpiritedBloom</span>
   </div>
-  <div class="article-body"><h3>Guide FAQ's: </h3><h4><strong>Q: Do IV's matter? </strong></h4><p>A: All guides assume IV's do not matter at a baseline. If they do, they will be explicitly mentioned. For a majority of solo raids throughout the archive, they don't matter. </p><h4><strong>Q: Do levels matter? </strong></h4><p>A: Similarly, we will explicitly point out if levels decide whether a raid is soloable or not. Each battle party can either show levels or a range of levels. Of course generally higher levels are more helpful but they are not significant enough variables to determine something being un-soloable. </p><h4><strong>Q: If I don't have the battle party listed, how do I know I can solo it? </strong></h4><p>A: We will explicitly mention if a battle party is <strong><em>strict</em></strong> or not. Most of times battle parties are not strict; we just list the optimal option for accuracy's sake. In some guides and retroactively through community editing, we'll try to include viable budget counters and context as to their overall DPS above the minimum. </p><h4><strong>Q: How do I know if my counters are good enough? </strong></h4><p>A: Best way is through the DPS Calculator. Its Main DPS mode tells you how much damage a pokemon is doing when absorbing fast moves only. Its Catch Tank mode tells you how much DPS is gained through CT rotations or, in that moment, if a regular attacker fully absorbs a charge move. </p><p>Solo Tier 5 raids have an overall minimum of 50 DPS after factoring rejoins. Here's a breakpoint of DPS to Rejoin. (Counted before rejoin time)</p><h4>Tier 5 Legendary Raids: </h4><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>0 Rejoin: 50.0 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>1 Rejoin: 51.19 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>2 Rejoins: 52.44 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>3 Rejoins: 53.76 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>4 Rejoins: 55.14 DPS </li></ol><p><strong>Tier 4 (Mega) Raids</strong></p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>0 Rejoin: 30.00 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>1 Rejoin: 30.71 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>2 Rejoins: 31.46 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>3 Rejoins: 32.25 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>4 Rejoins: 33.08 DPS</li></ol><p>The math is as simple as subtracting rejoin time then doing total damage/remaining time. E.g 2 rejoin 15000/286 = 52.44 DPS</p><p><br></p><h4>Q: Where can I learn about solo mechanics, how do I improve? </h4><p>A: For quick review on mechanics visit our glossary here: <a href="https://soloraidarchive.github.io/solo-raid-mechanics.html" target="_blank">Solo Raid Mechanics [Clips and short desciption]</a>, for an indepth tutorial video and voiceovers, check out this introduction playlist. <a href="https://www.youtube.com/watch?v=wUqMdYEkLck&amp;list=PLyQYzEAaBlfeb8CJRt-FnF7936qIvOktr" target="_blank">Introduction to Solo raid Mechanics tutorial videos (SpiritedBloom)</a></p><p>We have a DPS Calculator for theorycraft &amp; an archive to observe how other players defeated tough challenges. Solo raids are all about showing that player ingenuity and skill will always push above simulators. Practice makes perfect and enjoy the theorycraft! </p><h4>Q: Pokegenie, Pokebattler and other simulators say this is not soloable, are they just inaccurate?</h4><p>A: They aren't wrong but they are inaccurate. Simulators are bots playing in place of humans with no adaptation to strategy, preparation or theorycraft. They will <strong>always</strong> be several steps behind the meta. The single best question as to whether something is soloable or not is searching it up in the archive. 99.9% of the time, we'll have either the verified or theoretical approach to the boss. </p><h4>Q: How do I know what moves are good? </h4><p>A: A good starting point is DPS*DPE, something we already have labeled under <a href="https://soloraidarchive.github.io/move-data.html" target="_blank">Move-data</a> as score*. DPS*DPE and EPS*DPS (fast moves) are roughly a ~90% fit for defining move value. In solo raids, a higher value is placed on heavy damaging charge moves due to immense energy gains through catch tanking. </p><p>For the full answer, this is complex and takes experience. Fundamentally, the move which does the most DPS in a viable rotation is the best. DPS*DPE has a good alignment here but sometimes it is not perfect. Instead, utilizing a rotation calculator (link to it on landing page or via pokechespin) will provide the precise answer through trial and error. </p><p><strong>Q: How can I get involved? </strong></p><p>A: Submit a guide or submit a vod from the landing page. Or feel free to reach out to me via discord, my username is: cookieblob.</p></div>
+  <aside class="article-toc"><div class="article-toc-label">On this page</div>
+    <nav id="articleToc" aria-label="Table of contents"></nav></aside>
+  <div class="article-body" id="articleBody"><h3>Guide FAQ's: </h3><h4><strong>Q: Do IV's matter? </strong></h4><p>A: All guides assume IV's do not matter at a baseline. If they do, they will be explicitly mentioned. For a majority of solo raids throughout the archive, they don't matter. </p><h4><strong>Q: Do levels matter? </strong></h4><p>A: Similarly, we will explicitly point out if levels decide whether a raid is soloable or not. Each battle party can either show levels or a range of levels. Of course generally higher levels are more helpful but they are not significant enough variables to determine something being un-soloable. </p><h4><strong>Q: If I don't have the battle party listed, how do I know I can solo it? </strong></h4><p>A: We will explicitly mention if a battle party is <strong><em>strict</em></strong> or not. Most of times battle parties are not strict; we just list the optimal option for accuracy's sake. In some guides and retroactively through community editing, we'll try to include viable budget counters and context as to their overall DPS above the minimum. </p><h4><strong>Q: How do I know if my counters are good enough? </strong></h4><p>A: Best way is through the main DPS and catch tank calculator. Main DPS calculator tells you how much damage a pokemon is doing when absorbing fast moves only. Catch tank calculator tells you how much DPS is gained through CT rotations or, in that moment, if a regular attacker fully absorbs a charge move. </p><p>Solo Tier 5 raids have an overall minimum of 50 DPS after factoring rejoins. Here's a breakpoint of DPS to Rejoin. (Counted before rejoin time)</p><h4>Tier 5 Legendary Raids: </h4><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>0 Rejoin: 50.0 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>1 Rejoin: 51.19 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>2 Rejoins: 52.44 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>3 Rejoins: 53.76 DPS </li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>4 Rejoins: 55.14 DPS </li></ol><p><strong>Tier 4 (Mega) Raids</strong></p><ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>0 Rejoin: 30.00 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>1 Rejoin: 30.71 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>2 Rejoins: 31.46 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>3 Rejoins: 32.25 DPS</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>4 Rejoins: 33.08 DPS</li></ol><p>The math is as simple as subtracting rejoin time then doing total damage/remaining time. E.g 2 rejoin 15000/286 = 52.44 DPS</p><p><br></p><h4>Q: Where can I learn about solo mechanics, how do I improve? </h4><p>A: For quick review on mechanics visit our glossary here: <a href="https://soloraidarchive.github.io/solo-raid-mechanics.html" target="_blank">Solo Raid Mechanics [Clips and short desciption]</a>, for an indepth tutorial video and voiceovers, check out this introduction playlist. <a href="https://www.youtube.com/watch?v=wUqMdYEkLck&amp;list=PLyQYzEAaBlfeb8CJRt-FnF7936qIvOktr" target="_blank">Introduction to Solo raid Mechanics tutorial videos (SpiritedBloom)</a></p><p>We have a calculator for theorycraft &amp; an archive to observe how other players defeated tough challenges. Solo raids are all about showing that player ingenuity and skill will always push above simulators. Practice makes perfect and enjoy the theorycraft! </p><h4>Q: Pokegenie, Pokebattler and other simulators say this is not soloable, are they just inaccurate?</h4><p>A: They aren't wrong but they are inaccurate. Simulators are bots playing in place of humans with no adaptation to strategy, preparation or theorycraft. They will <strong>always</strong> be several steps behind the meta. The single best question as to whether something is soloable or not is searching it up in the archive. 99.9% of the time, we'll have either the verified or theoretical approach to the boss. </p><h4>Q: How do I know what moves are good? </h4><p>A: A good starting point is DPS*DPE, something we already have labeled under <a href="https://soloraidarchive.github.io/move-data.html" target="_blank">Move-data</a> as score*. DPS*DPE and EPS*DPS (fast moves) are roughly a ~90% fit for defining move value. In solo raids, a higher value is placed on heavy damaging charge moves due to immense energy gains through catch tanking. </p><p>For the full answer, this is complex and takes experience. Fundamentally, the move which does the most DPS in a viable rotation is the best. DPS*DPE has a good alignment here but sometimes it is not perfect. Instead, utilizing a rotation calculator (link to it on landing page or via pokechespin) will provide the precise answer through trial and error. </p><p><strong>Q: How can I get involved? </strong></p><p>A: Submit a guide or submit a vod from the landing page. Or feel free to reach out to me via discord, my username is: cookieblob.</p></div>
 </div>
 
 <div class="img-lightbox-overlay" id="imgLightboxOverlay">
@@ -493,5 +570,136 @@ document.addEventListener('mouseout', (e) => {
 });
 </script>
 
+<script id="articleTocData" type="application/json">[]</script>
+<script>
+// ---- Article table of contents ----
+// Generated from the rendered h2/h3 headings, then adjusted by any author overrides stored with
+// the article. Auto-generation is the default so an article needs no extra work; the overrides
+// only carry the differences - a renamed entry or a hidden one.
+//
+// Overrides are matched on the heading TEXT, not position, so reordering sections in the editor
+// keeps each entry's settings with its heading. A heading with no override behaves exactly as it
+// did before the feature existed.
+function buildArticleToc(root, nav, overrides){
+  if(!root || !nav) return;
+  const wrap = nav.closest(".article-toc");
+  const heads = [...root.querySelectorAll("h2, h3")];
+
+  const byText = new Map();
+  (overrides || []).forEach(o => { if(o && o.heading) byText.set(o.heading.trim(), o); });
+
+  const entries = [];
+  const used = new Set();
+  const slug = (txt) => {
+    let s = txt.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
+    let out = s, n = 2;
+    while(used.has(out)) out = s + "-" + n++;   // duplicate headings must not share an anchor
+    used.add(out);
+    return out;
+  };
+
+  heads.forEach(h => {
+    const text = h.textContent.trim();
+    if(!h.id) h.id = slug(text);
+    const o = byText.get(text) || {};
+    if(o.hidden) return;                        // author removed it from the contents
+    entries.push({ id: h.id, label: (o.label || "").trim() || text, level: h.tagName === "H2" ? 2 : 3, el: h });
+  });
+
+  // Too short to warrant one: drop the sidebar column entirely, not just the list. Setting
+  // hidden alone left an empty "On this page" column, because .article-toc{display:block}
+  // outranks the [hidden] attribute, and the article sat off-centre to its right.
+  const page = wrap && wrap.closest(".page");
+  if(entries.length < 3){ if(wrap) wrap.hidden = true; if(page) page.classList.remove("has-toc"); return; }
+  if(wrap) wrap.hidden = false;
+
+  nav.innerHTML = entries.map(e =>
+    `<a class="toc-link toc-l${e.level}" href="#${e.id}" data-target="${e.id}">${e.label}</a>`).join("");
+
+  const links = [...nav.querySelectorAll(".toc-link")];
+  const byId = new Map(links.map(a => [a.dataset.target, a]));
+  let current = null;
+  const setActive = (id) => {
+    if(id === current) return;
+    current = id;
+    links.forEach(a => a.classList.toggle("is-active", a.dataset.target === id));
+    const a = byId.get(id);
+    if(a && nav.scrollHeight > nav.clientHeight + 4){
+      nav.scrollTo({ top: a.offsetTop - nav.clientHeight / 2 + a.offsetHeight / 2, behavior: "smooth" });
+    }
+  };
+
+  // Topmost heading past the reading line wins; "whichever intersects" flickered between two.
+  // The line sits just below where a TOC jump parks a heading (its scroll-margin-top), read from
+  // the CSS so the two cannot drift apart. It used to be 28% of the viewport height: on any window
+  // taller than ~610px that line fell BELOW the next heading too, so clicking "Tier 4-5" parked
+  // it at 90px and then highlighted "Tiers 6+" sitting just under it.
+  const parkedAt = parseFloat(getComputedStyle(entries[0].el).scrollMarginTop) || 90;
+  const readingLine = () => {
+    const line = parkedAt + 12;
+    // The last few headings may never scroll up that far. Measure how far short the final one
+    // falls, and over the last stretch of scrolling slide the line down by exactly that much, so
+    // each of them still gets its turn without skipping any on the way.
+    const maxY = document.documentElement.scrollHeight - window.innerHeight;
+    const lastTop = entries[entries.length - 1].el.getBoundingClientRect().top + window.scrollY - maxY;
+    const shortfall = lastTop - line + 1;
+    if(shortfall <= 0) return line;
+    const stretch = Math.min(maxY, shortfall * 2);
+    const left = maxY - window.scrollY;
+    return left >= stretch ? line : line + shortfall * (1 - Math.max(left, 0) / stretch);
+  };
+  // A clicked entry stays highlighted until the reader has actually moved the page (40px) after the
+  // jump settles, so a heading near the end, which parks lower than the line, keeps its highlight.
+  let pinned = null, pinY = null, settle = 0;
+  const armPin = () => { clearTimeout(settle); settle = setTimeout(() => { if(pinned) pinY = window.scrollY; }, 150); };
+  const onScroll = () => {
+    if(pinned){
+      if(pinY === null){ armPin(); return; }           // still travelling to the target
+      if(Math.abs(window.scrollY - pinY) < 40) return;
+      pinned = pinY = null;
+    }
+    const line = readingLine();
+    let best = entries[0];
+    for(const e of entries){ if(e.el.getBoundingClientRect().top <= line) best = e; }
+    setActive(best.id);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const jumpTo = (id, behavior) => {
+    const el = document.getElementById(id);
+    if(!el) return false;
+    pinned = id; pinY = null;
+    setActive(id);
+    el.scrollIntoView({ behavior, block: "start" });
+    armPin();                                          // in case the page doesn't need to move at all
+    return true;
+  };
+
+  nav.addEventListener("click", (ev) => {
+    const a = ev.target.closest(".toc-link");
+    if(!a) return;
+    ev.preventDefault();
+    history.replaceState(null, "", "#" + a.dataset.target);
+    jumpTo(a.dataset.target, "smooth");
+  });
+
+  // Heading ids only exist once this script has run, so the browser's own jump for a shared or
+  // reloaded link (...#1-0-0-tier-4-5) has already failed by now. Redo it. Also covers in-page
+  // #links and an edited address bar, where the browser jumps by itself.
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if(!(hash && byId.has(hash) && jumpTo(hash, "auto"))) onScroll();
+  window.addEventListener("hashchange", () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if(byId.has(id)) jumpTo(id, "auto");
+  });
+}
+
+(function(){
+  let overrides = [];
+  try{ overrides = JSON.parse(document.getElementById("articleTocData").textContent) || []; }
+  catch(e){ overrides = []; }
+  buildArticleToc(document.getElementById("articleBody"), document.getElementById("articleToc"), overrides);
+})();
+</script>
 </body>
 </html>
