@@ -343,11 +343,26 @@ if ("serviceWorker" in navigator) {
   [data-theme="dark"] .strategy-text a{ color:#5eead4; }
   .article-preview-title{ font-family:'Manrope', sans-serif; font-weight:800; font-size:19px; margin-bottom:10px; line-height:1.3; }
   .article-preview-meta{ display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  /* Category tag: square-cornered tinted block with a coloured left edge, so it cannot be mistaken
+     for the rounded blue link buttons beside it. Each category has its own colour and none is blue
+     (blue means "link"). An unlisted category falls back to neutral grey.
+     Copy of the block in submission-worker.js ARTICLE_TEMPLATE; keep the two identical. */
   .article-category{
-    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:11px;
-    text-transform:uppercase; letter-spacing:0.03em; color: var(--blue-dark); background: var(--accent-soft);
-    padding:5px 12px; border-radius:999px;
+    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:10.5px;
+    text-transform:uppercase; letter-spacing:0.06em; line-height:1.3;
+    color:var(--cat); background:var(--cat-soft); border-left:3px solid var(--cat);
+    border-radius:4px; padding:4px 10px 4px 8px;
+    --cat:#5f6675; --cat-soft:rgba(95,102,117,.14);
   }
+  [data-theme="dark"] .article-category{ --cat:#aab1c0; --cat-soft:rgba(170,177,192,.14); }
+  .article-category[data-category="Meta Analysis"]{ --cat:#9a6300; --cat-soft:rgba(245,185,74,.16); }
+  [data-theme="dark"] .article-category[data-category="Meta Analysis"]{ --cat:#f5b94a; --cat-soft:rgba(245,185,74,.14); }
+  .article-category[data-category="Tips & Tricks"]{ --cat:#16865d; --cat-soft:rgba(79,209,161,.16); }
+  [data-theme="dark"] .article-category[data-category="Tips & Tricks"]{ --cat:#4fd1a1; --cat-soft:rgba(79,209,161,.14); }
+  .article-category[data-category="Game Update"]{ --cat:#6b46c1; --cat-soft:rgba(185,156,255,.2); }
+  [data-theme="dark"] .article-category[data-category="Game Update"]{ --cat:#b99cff; --cat-soft:rgba(185,156,255,.14); }
+  .article-category[data-category="Community"]{ --cat:#c2415a; --cat-soft:rgba(255,143,163,.18); }
+  [data-theme="dark"] .article-category[data-category="Community"]{ --cat:#ff8fa3; --cat-soft:rgba(255,143,163,.14); }
   .article-byline{ font-size:12.5px; color: var(--text-dim); }
   .article-body{ font-size:14px; line-height:1.4; }
   .article-body p{ margin:0 0 12px; }
@@ -2040,14 +2055,23 @@ function updateCharCount(){
 }
 updateCharCount();
 
+// The article limit is on the text the writer sees, which is what the counter shows. The save check
+// used to measure the raw HTML instead: every bullet costs ~60 characters of markup, so a list-heavy
+// article hit "too long" at roughly 5,000 visible characters while the counter read 5,864 / 10,000.
+// The HTML ceiling below is only a safety net against pathological markup, sized well above what
+// 10,000 characters of real writing produces (the existing articles run 1.4-2x text length).
+// submission-worker.js enforces the same two limits and must be kept in step.
+const ARTICLE_TEXT_MAX = 10000;
+const ARTICLE_HTML_MAX = 60000;
+
 function updateArticleCharCount(){
   const el = document.getElementById('articleCharCount');
   // plain text length, not innerHTML - images (base64) and tables would otherwise inflate this
   // to the point of being meaningless once those richer content types are in the mix
   const len = articleQuill.getText().length;
-  el.textContent = `${len.toLocaleString()} / 10,000 characters`;
-  el.classList.toggle('warn', len > 8000 && len <= 10000);
-  el.classList.toggle('over', len > 10000);
+  el.textContent = `${len.toLocaleString()} / ${ARTICLE_TEXT_MAX.toLocaleString()} characters`;
+  el.classList.toggle('warn', len > ARTICLE_TEXT_MAX * 0.8 && len <= ARTICLE_TEXT_MAX);
+  el.classList.toggle('over', len > ARTICLE_TEXT_MAX);
 }
 articleQuill.on('text-change', updateArticleCharCount);
 updateArticleCharCount();
@@ -2485,7 +2509,7 @@ function articlePreviewHtml(){
   return `
     <div class="article-preview-title">${escapeHtml(title)}</div>
     <div class="article-preview-meta">
-      <span class="article-category">${escapeHtml(category)}</span>
+      <span class="article-category" data-category="${escapeHtml(category)}">${escapeHtml(category)}</span>
       <span class="article-byline">By ${escapeHtml(submittedBy)}</span>
     </div>
     <div class="article-preview-layout">
@@ -2794,7 +2818,15 @@ async function submitArticleForm(){
     cleanedBody = cleanedBody.split(upload.base64).join(`{{UPLOAD:${upload.tempId}}}`);
   }
 
-  if(cleanedBody.length > 10000){ alert('Article body is too long (max 10,000 characters, not counting uploaded images). Trim it down and try again.'); return; }
+  const textLen = articleQuill.getText().length;
+  if(textLen > ARTICLE_TEXT_MAX){
+    alert(`Article body is too long (${textLen.toLocaleString()} / ${ARTICLE_TEXT_MAX.toLocaleString()} characters). Trim it down and try again.`);
+    return;
+  }
+  if(cleanedBody.length > ARTICLE_HTML_MAX){
+    alert(`The article's formatting is unusually heavy (${cleanedBody.length.toLocaleString()} characters of markup, max ${ARTICLE_HTML_MAX.toLocaleString()}), even though the text itself is within the limit. Try removing pasted formatting or splitting very large tables.`);
+    return;
+  }
 
   const status = document.getElementById('article-submit-status');
   const articleSubmitBtn = document.getElementById('article-submit-btn');
