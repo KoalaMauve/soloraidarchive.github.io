@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>%%ARTICLE_TITLE%% — Solo Raid Archive</title>
-<!-- Articles shipped with no meta description at all, so search engines invented their own snippet
-     from whatever text they found first. %%ARTICLE_CATEGORY%% is already substituted by the Worker,
-     so this needs no new plumbing and every future submission gets a description automatically. -->
+<!-- Ported from data/article-template.html, which had these; pages built here did not. -->
 <meta name="description" content="%%ARTICLE_TITLE%% — a %%ARTICLE_CATEGORY%% guide from the Solo Raid Archive, the community collection of solo raid strategies, catch tanks and battle parties for Pokémon GO.">
 <meta property="og:description" content="%%ARTICLE_TITLE%% — a %%ARTICLE_CATEGORY%% guide from the Solo Raid Archive.">
 <link rel="icon" href="../assets/icons/favicon.ico">
@@ -53,7 +51,7 @@ if ("serviceWorker" in navigator) {
   .page{ max-width:680px; margin:0 auto; padding:20px 20px 60px; }
   .article-eyebrow{ font-family:'Manrope', sans-serif; font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color: var(--blue-dark); text-align:center; margin-bottom:8px; }
   .article-title{ font-family:'Manrope', sans-serif; font-weight:800; font-size:26px; margin:0 0 8px; text-align:center; line-height:1.3; }
-  .edit-guide-row{ text-align:center; margin-bottom:14px; }
+  .edit-guide-row{ display:flex; justify-content:center; gap:8px; }
   .edit-guide-btn{
     display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700;
     color: var(--blue-dark); background: var(--accent-soft); padding:6px 14px; border-radius:999px;
@@ -61,23 +59,34 @@ if ("serviceWorker" in navigator) {
   }
   .edit-guide-btn:hover{ background:#dcecff; }
   [data-theme="dark"] .edit-guide-btn:hover{ background:#2a3555; }
-  .article-meta-row{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:28px; flex-wrap:wrap; }
+  .article-meta-row{ display:flex; align-items:center; justify-content:center; gap:10px 8px; margin:14px 0 28px; flex-wrap:wrap; }
+  .article-meta-sep{ display:none; }
+  /* Category tag: square-cornered tinted block with a coloured left edge, so it cannot be mistaken
+     for the rounded blue link buttons beside it. Each category has its own colour and none is blue
+     (blue means "link"). An unlisted category falls back to neutral grey. Keep in step with the
+     same block in editor.html's article preview. */
   .article-category{
-    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:11px;
-    text-transform:uppercase; letter-spacing:0.03em; color: var(--blue-dark); background: var(--accent-soft);
-    padding:5px 12px; border-radius:999px;
+    display:inline-block; font-family:'Manrope', sans-serif; font-weight:800; font-size:10.5px;
+    text-transform:uppercase; letter-spacing:0.06em; line-height:1.3;
+    color:var(--cat); background:var(--cat-soft); border-left:3px solid var(--cat);
+    border-radius:4px; padding:4px 10px 4px 8px;
+    --cat:#5f6675; --cat-soft:rgba(95,102,117,.14);
   }
+  [data-theme="dark"] .article-category{ --cat:#aab1c0; --cat-soft:rgba(170,177,192,.14); }
+  .article-category[data-category="Meta Analysis"]{ --cat:#9a6300; --cat-soft:rgba(245,185,74,.16); }
+  [data-theme="dark"] .article-category[data-category="Meta Analysis"]{ --cat:#f5b94a; --cat-soft:rgba(245,185,74,.14); }
+  .article-category[data-category="Tips & Tricks"]{ --cat:#16865d; --cat-soft:rgba(79,209,161,.16); }
+  [data-theme="dark"] .article-category[data-category="Tips & Tricks"]{ --cat:#4fd1a1; --cat-soft:rgba(79,209,161,.14); }
+  .article-category[data-category="Game Update"]{ --cat:#6b46c1; --cat-soft:rgba(185,156,255,.2); }
+  [data-theme="dark"] .article-category[data-category="Game Update"]{ --cat:#b99cff; --cat-soft:rgba(185,156,255,.14); }
+  .article-category[data-category="Community"]{ --cat:#c2415a; --cat-soft:rgba(255,143,163,.18); }
+  [data-theme="dark"] .article-category[data-category="Community"]{ --cat:#ff8fa3; --cat-soft:rgba(255,143,163,.14); }
   .article-byline{ font-size:12.5px; color: var(--text-dim); }
   .article-body{
     background: var(--card); border-radius:16px; padding:24px 26px; font-size:15px; line-height:1.4;
   }
-  /* These regions hold text typed or pasted by contributors through the Quill editor, so their
-     content is unbounded by definition. A single unbreakable token - a pasted YouTube URL in one
-     guide - pushed the page 20px wider than a 320px viewport and gave the whole document a
-     horizontal scrollbar. `anywhere` lets the browser break inside such a token as a last resort;
-     normal words are unaffected because it only applies when a line cannot otherwise fit. This is
-     a property of user-generated content, so it belongs in the template rather than being patched
-     per guide as future submissions reintroduce it. */
+  /* Long pasted tokens (a YouTube URL) must wrap rather than widen the page on a 320px phone.
+     Ported from data/article-template.html. */
   .article-body{ overflow-wrap:anywhere; }
   .article-body p{ margin:0 0 14px; }
   .article-body p:last-child{ margin-bottom:0; }
@@ -102,8 +111,8 @@ if ("serviceWorker" in navigator) {
   .article-body li[data-list="ordered"]{ counter-increment:list-0; }
   .article-body li[data-list="ordered"]::before{ content:counter(list-0) ". "; display:inline-block; margin-left:-1.4em; margin-right:.3em; width:1.2em; }
   /* Nested list levels. Quill marks an indented item with ql-indent-1 .. ql-indent-8
-     instead of nesting a real <ul>, so without these a sub-bullet renders flush
-     against its parent and reads as an ordinary row. */
+     instead of nesting a real <ul>, so without these a sub-bullet renders flush against
+     its parent. Kept identical to data/article-template.html - see the note on the two copies. */
   .article-body li.ql-indent-1{ padding-left:1.6em; counter-reset:list-1; }
   .article-body li.ql-indent-2{ padding-left:3.2em; counter-reset:list-2; }
   .article-body li.ql-indent-3{ padding-left:4.8em; counter-reset:list-3; }
@@ -206,21 +215,14 @@ if ("serviceWorker" in navigator) {
     position:sticky; top:0; z-index:15; background: var(--bg1);
     padding: 10px 16px; border-bottom: 1px solid var(--border);
   }
-  /* min-height matches the hamburger's 44px hit area plus its 3px shadow on each side, so the
-     button sits inside the bar instead of spilling past its top and bottom edges. Pages that
-     already reserve this on .sticky-header-title-row render a 65px bar; this brings the rest to
-     the same height with the same mechanism rather than a second one. Any future control added
-     to this row inherits the clearance instead of needing its own fix. */
+  /* min-height: room for the 44px hamburger (ported from data/article-template.html). */
   .sticky-header-row{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; position:relative; min-height:44px; }
   .sticky-header-row .hamburger-btn{ position:absolute; right:0; }
   .page-title-sm{ font-family:'Manrope', sans-serif; font-weight:800; font-size:18px; margin:0; color: var(--text); text-align:center; }
 
-  /* 44px, not 38: this is the only always-available navigation control on mobile and 38px is
-     below every touch-target guideline. It renders 44x44 on 12 other pages - the 38px value
-     lived in a second, independent .hamburger-btn rule that these pages happened to inherit. */
   .hamburger-btn{
     flex-shrink:0; z-index:20; -webkit-tap-highlight-color:transparent;
-    width:44px; height:44px; border-radius:50%;
+    width:44px; height:44px; border-radius:50%;   /* 44px touch target, as on every other page */
     background: var(--card); border:2px solid var(--border);
     cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:4px; box-shadow: 0 3px 0 rgba(0,0,0,0.06); transition: transform .15s;
@@ -271,40 +273,37 @@ if ("serviceWorker" in navigator) {
   }
 
   /* ---- Article table of contents (desktop only) ----
-     Mirrors the Solo Raid Mechanics sidebar. Below 1080px it is not rendered at all and the page
-     is byte-for-byte what it is today, so mobile is untouched. */
+     Built from the rendered h2/h3 on load, so nothing is stored in the article JSON and existing
+     articles gain it without being re-saved. Hidden below 1080px, so mobile is unchanged.
+     MIRROR OF data/article-template.html - this Worker embeds its own copy of the template and
+     never reads the repo one, so both files must be edited together. */
   .article-toc{ display:none; }
   @media (min-width:1080px){
-    .page.has-toc{
-      display:grid; grid-template-columns:230px minmax(0,1fr); gap:34px;
-      max-width:1240px; align-items:start;
-    }
-    /* Every other child of .page - title, meta row, edit links, body - belongs in the right
-       column. Without this they become grid items in the left column alongside the contents. */
+    .page.has-toc{ display:grid; grid-template-columns:230px minmax(0,1fr); column-gap:34px;
+      grid-template-rows:auto auto auto 1fr; max-width:1240px; align-items:start; }
     .page.has-toc > *:not(.article-toc){ grid-column:2; }
-    .page.has-toc > .article-toc{ grid-column:1; grid-row:1 / span 99; }
-    .article-toc{
-      display:block; position:sticky; top:84px;
-      max-height:calc(100vh - 120px); overflow-y:auto; padding-right:6px;
-    }
-    .article-toc-label{
-      font-family:'Manrope',sans-serif; font-weight:800; font-size:10px; letter-spacing:.06em;
-      text-transform:uppercase; color:var(--ink-dim,#5f6675); opacity:.75; margin:0 0 8px 10px;
-    }
-    .toc-link{
-      display:block; padding:5px 10px; border-radius:8px; text-decoration:none;
+    .page.has-toc > .article-toc{ grid-column:1; grid-row:1 / -1; }
+    .article-toc[hidden]{ display:none !important; }
+    /* Header: left-aligned over the article, links and tags on one row. Applies with or without
+       a contents column, so short articles match long ones. */
+    .article-eyebrow, .article-title{ text-align:left; }
+    .article-eyebrow{ margin-bottom:2px; }
+    .article-title{ margin-bottom:0; }
+    .article-meta-row{ justify-content:flex-start; margin:10px 0 20px; }
+    .article-meta-sep{ display:block; width:1px; height:18px; margin:0 4px;
+      background:var(--text-dim); opacity:.35; }
+    .article-toc{ display:block; position:sticky; top:84px;
+      max-height:calc(100vh - 120px); overflow-y:auto; padding-right:6px; }
+    .article-toc-label{ font-family:'Manrope',sans-serif; font-weight:800; font-size:10px;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--ink-dim,#5f6675); opacity:.75; margin:0 0 8px 10px; }
+    .toc-link{ display:block; padding:5px 10px; border-radius:8px; text-decoration:none;
       font-family:'Inter',sans-serif; color:var(--ink-dim,#5f6675);
-      border-left:2px solid transparent; line-height:1.35;
-      transition:background .12s, color .12s, border-color .12s;
-    }
+      border-left:2px solid transparent; line-height:1.35; }
     .toc-l2{ font-size:12.5px; font-weight:700; margin-top:6px; }
     .toc-l3{ font-size:11.5px; padding-left:22px; }
     .toc-link:hover{ background:rgba(61,157,255,.09); color:var(--blue-dark,#2b7fd6); }
-    .toc-link.is-active{
-      color:var(--blue-dark,#2b7fd6); background:rgba(61,157,255,.13);
-      border-left-color:var(--blue,#3d9dff); font-weight:800;
-    }
-    /* Anchored jumps must clear the sticky site header. */
+    .toc-link.is-active{ color:var(--blue-dark,#2b7fd6); background:rgba(61,157,255,.13);
+      border-left-color:var(--blue,#3d9dff); font-weight:800; }
     .article-body h2, .article-body h3{ scroll-margin-top:90px; }
   }
 
@@ -410,12 +409,13 @@ if ("serviceWorker" in navigator) {
 <div class="page has-toc">
   <div class="article-eyebrow">Research Article</div>
   <h1 class="article-title">%%ARTICLE_TITLE%%</h1>
-  <div class="edit-guide-row">
-    <a class="edit-guide-btn" href="../articles.html">&#8592; All Articles</a>
-    <a class="edit-guide-btn" href="../editor.html?mode=article&article=%%ARTICLE_SLUG%%">&#9998; Edit this article</a>
-  </div>
   <div class="article-meta-row">
-    <span class="article-category">%%ARTICLE_CATEGORY%%</span>
+    <div class="edit-guide-row">
+      <a class="edit-guide-btn" href="../articles.html">&#8592; All Articles</a>
+      <a class="edit-guide-btn" href="../editor.html?mode=article&article=%%ARTICLE_SLUG%%">&#9998; Edit this article</a>
+    </div>
+    <span class="article-meta-sep" aria-hidden="true"></span>
+    <span class="article-category" data-category="%%ARTICLE_CATEGORY%%">%%ARTICLE_CATEGORY%%</span>
     <span class="article-byline">By %%ARTICLE_AUTHOR%%</span>
   </div>
   <aside class="article-toc"><div class="article-toc-label">On this page</div>
@@ -570,30 +570,51 @@ document.addEventListener('mouseout', (e) => {
 });
 </script>
 
+<script id="articleTocData" type="application/json">%%ARTICLE_TOC%%</script>
 <script>
 // ---- Article table of contents ----
-// Built from the rendered h2/h3 headings, so writers add nothing to the article - the outline is
-// whatever structure they already wrote. Heading ids are generated here rather than stored, which
-// keeps existing articles working untouched.
-function buildArticleToc(root, nav){
+// Generated from the rendered h2/h3 headings, then adjusted by any author overrides stored with
+// the article. Auto-generation is the default so an article needs no extra work; the overrides
+// only carry the differences - a renamed entry or a hidden one.
+//
+// Overrides are matched on the heading TEXT, not position, so reordering sections in the editor
+// keeps each entry's settings with its heading. A heading with no override behaves exactly as it
+// did before the feature existed.
+function buildArticleToc(root, nav, overrides){
   if(!root || !nav) return;
+  const wrap = nav.closest(".article-toc");
   const heads = [...root.querySelectorAll("h2, h3")];
-  if(heads.length < 3){ nav.closest(".article-toc").hidden = true; return; }   // too short to need one
 
+  const byText = new Map();
+  (overrides || []).forEach(o => { if(o && o.heading) byText.set(o.heading.trim(), o); });
+
+  const entries = [];
   const used = new Set();
   const slug = (txt) => {
     let s = txt.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
     let out = s, n = 2;
-    while(used.has(out)) out = s + "-" + n++;        // duplicate headings must not collide
+    while(used.has(out)) out = s + "-" + n++;   // duplicate headings must not share an anchor
     used.add(out);
     return out;
   };
 
-  nav.innerHTML = heads.map(h => {
-    if(!h.id) h.id = slug(h.textContent);
-    const lvl = h.tagName === "H2" ? "toc-l2" : "toc-l3";
-    return `<a class="toc-link ${lvl}" href="#${h.id}" data-target="${h.id}">${h.textContent.trim()}</a>`;
-  }).join("");
+  heads.forEach(h => {
+    const text = h.textContent.trim();
+    if(!h.id) h.id = slug(text);
+    const o = byText.get(text) || {};
+    if(o.hidden) return;                        // author removed it from the contents
+    entries.push({ id: h.id, label: (o.label || "").trim() || text, level: h.tagName === "H2" ? 2 : 3, el: h });
+  });
+
+  // Too short to warrant one: drop the sidebar column entirely, not just the list. Setting
+  // hidden alone left an empty "On this page" column, because .article-toc{display:block}
+  // outranks the [hidden] attribute, and the article sat off-centre to its right.
+  const page = wrap && wrap.closest(".page");
+  if(entries.length < 3){ if(wrap) wrap.hidden = true; if(page) page.classList.remove("has-toc"); return; }
+  if(wrap) wrap.hidden = false;
+
+  nav.innerHTML = entries.map(e =>
+    `<a class="toc-link toc-l${e.level}" href="#${e.id}" data-target="${e.id}">${e.label}</a>`).join("");
 
   const links = [...nav.querySelectorAll(".toc-link")];
   const byId = new Map(links.map(a => [a.dataset.target, a]));
@@ -603,35 +624,82 @@ function buildArticleToc(root, nav){
     current = id;
     links.forEach(a => a.classList.toggle("is-active", a.dataset.target === id));
     const a = byId.get(id);
-    // Keep the active entry visible without dragging the page around.
     if(a && nav.scrollHeight > nav.clientHeight + 4){
       nav.scrollTo({ top: a.offsetTop - nav.clientHeight / 2 + a.offsetHeight / 2, behavior: "smooth" });
     }
   };
 
-  // The topmost heading past the reading line wins. Using "whichever is intersecting" made the
-  // highlight flicker between two headings inside a long section.
+  // Topmost heading past the reading line wins; "whichever intersects" flickered between two.
+  // The line sits just below where a TOC jump parks a heading (its scroll-margin-top), read from
+  // the CSS so the two cannot drift apart. It used to be 28% of the viewport height: on any window
+  // taller than ~610px that line fell BELOW the next heading too, so clicking "Tier 4-5" parked
+  // it at 90px and then highlighted "Tiers 6+" sitting just under it.
+  const parkedAt = parseFloat(getComputedStyle(entries[0].el).scrollMarginTop) || 90;
+  const readingLine = () => {
+    const line = parkedAt + 12;
+    // The last few headings may never scroll up that far. Measure how far short the final one
+    // falls, and over the last stretch of scrolling slide the line down by exactly that much, so
+    // each of them still gets its turn without skipping any on the way.
+    const maxY = document.documentElement.scrollHeight - window.innerHeight;
+    const lastTop = entries[entries.length - 1].el.getBoundingClientRect().top + window.scrollY - maxY;
+    const shortfall = lastTop - line + 1;
+    if(shortfall <= 0) return line;
+    const stretch = Math.min(maxY, shortfall * 2);
+    const left = maxY - window.scrollY;
+    return left >= stretch ? line : line + shortfall * (1 - Math.max(left, 0) / stretch);
+  };
+  // A clicked entry stays highlighted until the reader has actually moved the page (40px) after the
+  // jump settles, so a heading near the end, which parks lower than the line, keeps its highlight.
+  let pinned = null, pinY = null, settle = 0;
+  const armPin = () => { clearTimeout(settle); settle = setTimeout(() => { if(pinned) pinY = window.scrollY; }, 150); };
   const onScroll = () => {
-    const line = window.innerHeight * 0.28;
-    let best = heads[0];
-    for(const h of heads){ if(h.getBoundingClientRect().top <= line) best = h; }
+    if(pinned){
+      if(pinY === null){ armPin(); return; }           // still travelling to the target
+      if(Math.abs(window.scrollY - pinY) < 40) return;
+      pinned = pinY = null;
+    }
+    const line = readingLine();
+    let best = entries[0];
+    for(const e of entries){ if(e.el.getBoundingClientRect().top <= line) best = e; }
     setActive(best.id);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+
+  const jumpTo = (id, behavior) => {
+    const el = document.getElementById(id);
+    if(!el) return false;
+    pinned = id; pinY = null;
+    setActive(id);
+    el.scrollIntoView({ behavior, block: "start" });
+    armPin();                                          // in case the page doesn't need to move at all
+    return true;
+  };
 
   nav.addEventListener("click", (ev) => {
     const a = ev.target.closest(".toc-link");
     if(!a) return;
     ev.preventDefault();
-    const el = document.getElementById(a.dataset.target);
-    if(!el) return;
     history.replaceState(null, "", "#" + a.dataset.target);
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    jumpTo(a.dataset.target, "smooth");
+  });
+
+  // Heading ids only exist once this script has run, so the browser's own jump for a shared or
+  // reloaded link (...#1-0-0-tier-4-5) has already failed by now. Redo it. Also covers in-page
+  // #links and an edited address bar, where the browser jumps by itself.
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if(!(hash && byId.has(hash) && jumpTo(hash, "auto"))) onScroll();
+  window.addEventListener("hashchange", () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if(byId.has(id)) jumpTo(id, "auto");
   });
 }
 
-buildArticleToc(document.getElementById("articleBody"), document.getElementById("articleToc"));
+(function(){
+  let overrides = [];
+  try{ overrides = JSON.parse(document.getElementById("articleTocData").textContent) || []; }
+  catch(e){ overrides = []; }
+  buildArticleToc(document.getElementById("articleBody"), document.getElementById("articleToc"), overrides);
+})();
 </script>
 </body>
 </html>
