@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T09:04:36.957516+00:00",
+  "generatedAt": "2026-09-30T17:05:48.652379+00:00",
   "dateGroups": [
     {
       "startDate": "Sep 30, 2026",
@@ -19,7 +19,7 @@
           "weather": "Extreme"
         }
       ],
-      "status": "future"
+      "status": "active"
     },
     {
       "startDate": "Oct 7, 2026",
@@ -108,6 +108,34 @@
       "status": "future"
     },
     {
+      "startDate": "Aug 26, 2026",
+      "endDate": "Sep 8, 2026",
+      "category": "rotation",
+      "bosses": [
+        {
+          "name": "Mega Gyarados",
+          "archivePage": "tier4-raids.html",
+          "difficulty": "3 \u2b50",
+          "weather": "Cloudy"
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "startDate": "Sep 8, 2026",
+      "endDate": "Sep 15, 2026",
+      "category": "rotation",
+      "bosses": [
+        {
+          "name": "Mega Beedrill",
+          "archivePage": "tier4-raids.html",
+          "difficulty": "1 \u2b50",
+          "weather": "Extreme"
+        }
+      ],
+      "status": "passed"
+    },
+    {
       "startDate": null,
       "endDate": "Sep 29, 2026",
       "category": "rotation",
@@ -135,34 +163,6 @@
           "archivePage": "tier5-raids.html",
           "difficulty": "5 \u2b50",
           "weather": "Clear"
-        }
-      ],
-      "status": "active"
-    },
-    {
-      "startDate": "Aug 26, 2026",
-      "endDate": "Sep 8, 2026",
-      "category": "rotation",
-      "bosses": [
-        {
-          "name": "Mega Gyarados",
-          "archivePage": "tier4-raids.html",
-          "difficulty": "3 \u2b50",
-          "weather": "Cloudy"
-        }
-      ],
-      "status": "passed"
-    },
-    {
-      "startDate": "Sep 8, 2026",
-      "endDate": "Sep 15, 2026",
-      "category": "rotation",
-      "bosses": [
-        {
-          "name": "Mega Beedrill",
-          "archivePage": "tier4-raids.html",
-          "difficulty": "1 \u2b50",
-          "weather": "Extreme"
         }
       ],
       "status": "passed"
